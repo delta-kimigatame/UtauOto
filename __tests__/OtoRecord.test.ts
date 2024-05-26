@@ -1,4 +1,4 @@
-import { OtoRecord } from "../src/OtoRecord";
+import OtoRecord from "../src/OtoRecord";
 
 describe("OtoRecordのテスト", () => {
   test("default_init", () => {

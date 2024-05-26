@@ -5,6 +5,7 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "webpack --mode=development",
+    "prepare":"npm run build",
     "start": "webpack serve --mode=development"
   },
   "repository": {

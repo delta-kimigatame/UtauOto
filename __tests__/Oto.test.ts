@@ -1,4 +1,4 @@
-import { Oto } from "../src/Oto";
+import Oto from "../src/Oto";
 
 describe("Otoのテスト", () => {
   test("simple_input", () => {

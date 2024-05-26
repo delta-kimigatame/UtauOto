@@ -2,10 +2,10 @@
  * UTAU原音設定ファイルを扱います。
  */
 
-import { OtoRecord } from "./OtoRecord";
+import OtoRecord from "./OtoRecord";
 import * as iconv from "iconv-lite";
 
-export class Oto {
+export default class Oto {
   private datas: {
     [dirPath: string]: { [filename: string]: { [alias: string]: OtoRecord } };
   };

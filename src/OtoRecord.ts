@@ -2,7 +2,7 @@
  * UTAU原音設定ファイル(oto.ini)の1行毎のレコードを扱います。
  */
 
-export class OtoRecord {
+export default class OtoRecord {
   private _dirpath: string;
   private _filename: string;
   private _alias: string;

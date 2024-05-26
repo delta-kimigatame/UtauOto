@@ -1,1 +1,1 @@
-export { Oto } from "./Oto";
+export { default as Oto } from "./Oto";

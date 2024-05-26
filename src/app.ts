@@ -1,4 +1,4 @@
-import { Oto } from "./Oto";
+import Oto from "./Oto";
 
 function main() {
   const inputFile = document.getElementById("input-file");

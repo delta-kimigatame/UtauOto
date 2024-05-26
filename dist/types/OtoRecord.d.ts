@@ -1,7 +1,7 @@
 /**
  * UTAU原音設定ファイル(oto.ini)の1行毎のレコードを扱います。
  */
-export declare class OtoRecord {
+export default class OtoRecord {
     private dirpath_;
     private record;
     private _dirpath;

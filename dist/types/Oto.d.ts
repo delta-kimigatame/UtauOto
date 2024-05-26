@@ -1,8 +1,8 @@
 /**
  * UTAU原音設定ファイルを扱います。
  */
-import { OtoRecord } from "./OtoRecord";
-export declare class Oto {
+import OtoRecord from "./OtoRecord";
+export default class Oto {
     private datas;
     constructor();
     /**
