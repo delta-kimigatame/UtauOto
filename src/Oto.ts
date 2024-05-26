@@ -271,7 +271,43 @@ export class Oto {
     reader.readAsText(oto, encoding);
   }
 
-  GetJson():string{
-    return(JSON.stringify(this.datas))
+  /**
+   * OtoのデータをFileオブジェクトに出力する。
+   * 別途URL.createObjectURLを使用して、ダウンロードすることを想定
+   * @returns dirPath毎のoto.iniのFileオブジェクト
+   */
+  OutputOto(): Array<File> {
+    const resultUrls: Array<File> = new Array();
+    for (const dirPath in this.datas) {
+      const lines: Array<string> = new Array();
+      for (const filename in this.datas[dirPath]) {
+        for (const alias in this.datas[dirPath][filename]) {
+          lines.push(
+            this.datas[dirPath][filename][alias].filename +
+              "=" +
+              this.datas[dirPath][filename][alias].alias +
+              "," +
+              this.datas[dirPath][filename][alias].offset.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].velocity.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].blank.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].pre.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].overlap.toFixed(3)
+          );
+        }
+      }
+      console.log(lines.join("\r\n"))
+      const iniFile = new File([lines.join("\r\n")],dirPath,{type:"text/plane;charset=utf-8"})
+      resultUrls.push(iniFile)
+    }
+
+    return resultUrls;
+  }
+
+  GetJson(): string {
+    return JSON.stringify(this.datas);
   }
 }
