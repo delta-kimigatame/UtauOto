@@ -55,57 +55,57 @@ export class OtoRecord {
   //** オフセット(左ブランク)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set offset(value: string | number) {
     if (typeof value === "number") {
-      this.offset = value;
-    } else if (Number.isNaN(value)) {
-      this.offset = parseFloat(value);
+      this._offset = value;
+    } else if (!Number.isNaN(parseFloat(value))) {
+      this._offset = parseFloat(value);
     } else {
       console.log(value + "is not Numer");
-      this.offset = 0;
+      this._offset = 0;
     }
   }
 
   //** オーバーラップ。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set overlap(value: string | number) {
     if (typeof value === "number") {
-      this.overlap = value;
-    } else if (Number.isNaN(value)) {
-      this.overlap = parseFloat(value);
+      this._overlap = value;
+    } else if (!Number.isNaN(parseFloat(value))) {
+      this._overlap = parseFloat(value);
     } else {
       console.log(value + "is not Numer");
-      this.overlap = 0;
+      this._overlap = 0;
     }
   }
   //** 先行発声。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set pre(value: string | number) {
     if (typeof value === "number") {
-      this.pre = value;
-    } else if (Number.isNaN(value)) {
-      this.pre = parseFloat(value);
+      this._pre = value;
+    } else if (!Number.isNaN(parseFloat(value))) {
+      this._pre = parseFloat(value);
     } else {
       console.log(value + "is not Numer");
-      this.pre = 0;
+      this._pre = 0;
     }
   }
   //** 子音部(固定範囲)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set velocity(value: string | number) {
     if (typeof value === "number") {
-      this.velocity = value;
-    } else if (Number.isNaN(value)) {
-      this.velocity = parseFloat(value);
+      this._velocity = value;
+    } else if (!Number.isNaN(parseFloat(value))) {
+      this._velocity = parseFloat(value);
     } else {
       console.log(value + "is not Numer");
-      this.velocity = 0;
+      this._velocity = 0;
     }
   }
   //** ブランク(右ブランク)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set blank(value: string | number) {
     if (typeof value === "number") {
-      this.blank = value;
-    } else if (Number.isNaN(value)) {
-      this.blank = parseFloat(value);
+      this._blank = value;
+    } else if (!Number.isNaN(parseFloat(value))) {
+      this._blank = parseFloat(value);
     } else {
       console.log(value + "is not Numer");
-      this.blank = 0;
+      this._blank = 0;
     }
   }
 
