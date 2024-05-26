@@ -38,21 +38,23 @@ export class OtoRecord {
     this.blank = splitByComma[3];
   }
 
-  //**原音ルートからの相対パス */
+  /**
+   * 原音ルートからの相対パス
+   */
   set dirpath(value: string) {
     this._dirpath = value;
   }
-  //**ファイル名 */
+  /**ファイル名*/
   set filename(value: string) {
     this._filename = value;
   }
 
-  //**エイリアス */
+  /**エイリアス */
   set alias(value: string) {
     this._alias = value;
   }
 
-  //** オフセット(左ブランク)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
+  /** オフセット(左ブランク)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set offset(value: string | number) {
     if (typeof value === "number") {
       this._offset = value;
@@ -64,7 +66,7 @@ export class OtoRecord {
     }
   }
 
-  //** オーバーラップ。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
+  /** オーバーラップ。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set overlap(value: string | number) {
     if (typeof value === "number") {
       this._overlap = value;
@@ -75,7 +77,7 @@ export class OtoRecord {
       this._overlap = 0;
     }
   }
-  //** 先行発声。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
+  /** 先行発声。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set pre(value: string | number) {
     if (typeof value === "number") {
       this._pre = value;
@@ -86,7 +88,7 @@ export class OtoRecord {
       this._pre = 0;
     }
   }
-  //** 子音部(固定範囲)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
+  /** 子音部(固定範囲)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set velocity(value: string | number) {
     if (typeof value === "number") {
       this._velocity = value;
@@ -97,7 +99,7 @@ export class OtoRecord {
       this._velocity = 0;
     }
   }
-  //** ブランク(右ブランク)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
+  /** ブランク(右ブランク)。非数値の文字が与えられた場合、consoleにエラーを出力して0とする*/
   set blank(value: string | number) {
     if (typeof value === "number") {
       this._blank = value;
@@ -109,42 +111,42 @@ export class OtoRecord {
     }
   }
 
-  //**原音ルートからの相対パス */
+  /**原音ルートからの相対パス */
   get dirpath(): string {
     return this._dirpath;
   }
 
-  //**ファイル名 */
+  /**ファイル名 */
   get filename(): string {
     return this._filename;
   }
 
-  //**エイリアス */
+  /**エイリアス */
   get alias(): string {
     return this._alias;
   }
 
-  //**オフセット(左ブランク) */
+  /**オフセット(左ブランク) */
   get offset(): number {
     return this._offset;
   }
 
-  //**オーバーラップ */
+  /**オーバーラップ */
   get overlap(): number {
     return this._overlap;
   }
 
-  //**先行発声 */
+  /**先行発声 */
   get pre(): number {
     return this._pre;
   }
 
-  //**子音部(固定範囲) */
+  /**子音部(固定範囲) */
   get velocity(): number {
     return this._velocity;
   }
 
-  //**ブランク(右ブランク) */
+  /**ブランク(右ブランク) */
   get blank(): number {
     return this._blank;
   }
