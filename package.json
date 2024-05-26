@@ -1,15 +1,21 @@
 {
   "name": "utauoto",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "webpack --mode=development",
     "start": "webpack serve --mode=development"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delta-kimigatame/UtauOto.git"
+  },
+  "keywords": ["UTAU","oto"],
+  "author": "delta_kimigatame",
   "license": "MIT",
-  "description": "",
+  "description": "IO UTAU Oto.ini",
+  "homepage": "https://delta-kimigatame.github.io/UtauOto/index.html",
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
