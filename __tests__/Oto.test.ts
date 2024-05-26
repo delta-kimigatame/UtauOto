@@ -66,10 +66,7 @@ describe("Otoのテスト", () => {
       "A3",
       "_あ.wav=あ,1,2,3,4,5\r\n_い.wav=い,6,7,8,9,10\r\n_う.wav=う,11,12,13,14,15\r\n_う.wav=* う,16,17,18,19,20"
     );
-    oto.ParseOto(
-      "B3",
-      "_お.wav=お,21,22,23,24,25"
-    );
+    oto.ParseOto("B3", "_お.wav=お,21,22,23,24,25");
     expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
     expect(oto.HasOtoRecord("A3", "_い.wav", "い")).toBe(true);
     expect(oto.HasOtoRecord("A3", "_う.wav", "う")).toBe(true);
@@ -189,7 +186,7 @@ describe("Otoのテスト", () => {
       "_あ.wav=あ,1,2,3,4,5\n_い.wav=い,6,7,8,9,10\n_う.wav=う,11,12,13,14,15"
     );
     expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
-    oto.SetParams("A3", "_あ.wav", "あ",21,22,23,24,25)
+    oto.SetParams("A3", "_あ.wav", "あ", 21, 22, 23, 24, 25);
     const aOto = oto.GetRecord("A3", "_あ.wav", "あ");
     if (aOto) {
       //**コンパイルの関係で1度aOtoに代入しているが、上でHasOtoRecordを実施しているため必ずtrue */
@@ -210,7 +207,7 @@ describe("Otoのテスト", () => {
       "_あ.wav=あ,1,2,3,4,5\n_い.wav=い,6,7,8,9,10\n_う.wav=う,11,12,13,14,15"
     );
     expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
-    oto.SetParams("A3", "_え.wav", "え",21,22,23,24,25)
+    oto.SetParams("A3", "_え.wav", "え", 21, 22, 23, 24, 25);
     const eOto = oto.GetRecord("A3", "_え.wav", "え");
     if (eOto) {
       //**コンパイルの関係で1度aOtoに代入しているが、上でHasOtoRecordを実施しているため必ずtrue */
@@ -230,7 +227,7 @@ describe("Otoのテスト", () => {
       "A3",
       "_あ.wav=あ,1,2,3,4,5\n_い.wav=い,6,7,8,9,10\n_う.wav=う,11,12,13,14,15"
     );
-    oto.SetParams("B3", "_え.wav", "え",21,22,23,24,25)
+    oto.SetParams("B3", "_え.wav", "え", 21, 22, 23, 24, 25);
     const eOto = oto.GetRecord("B3", "_え.wav", "え");
     if (eOto) {
       //**コンパイルの関係で1度aOtoに代入しているが、上でHasOtoRecordを実施しているため必ずtrue */
@@ -251,11 +248,11 @@ describe("Otoのテスト", () => {
       "_あ.wav=あ,1,2,3,4,5\n_い.wav=い,6,7,8,9,10\n_う.wav=う,11,12,13,14,15"
     );
     expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
-    oto.SetOffset("A3", "_あ.wav", "あ",21)
-    oto.SetOverlap("A3", "_あ.wav", "あ",22)
-    oto.SetPre("A3", "_あ.wav", "あ",23)
-    oto.SetVelocity("A3", "_あ.wav", "あ",24)
-    oto.SetBlank("A3", "_あ.wav", "あ",25)
+    oto.SetOffset("A3", "_あ.wav", "あ", 21);
+    oto.SetOverlap("A3", "_あ.wav", "あ", 22);
+    oto.SetPre("A3", "_あ.wav", "あ", 23);
+    oto.SetVelocity("A3", "_あ.wav", "あ", 24);
+    oto.SetBlank("A3", "_あ.wav", "あ", 25);
     const aOto = oto.GetRecord("A3", "_あ.wav", "あ");
     if (aOto) {
       //**コンパイルの関係で1度aOtoに代入しているが、上でHasOtoRecordを実施しているため必ずtrue */
@@ -276,7 +273,7 @@ describe("Otoのテスト", () => {
       "_あ.wav=あ,1,2,3,4,5\n_い.wav=い,6,7,8,9,10\n_う.wav=う,11,12,13,14,15"
     );
     expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
-    oto.SetAlias("A3", "_あ.wav", "あ","え")
+    oto.SetAlias("A3", "_あ.wav", "あ", "え");
     expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(false);
     expect(oto.HasOtoRecord("A3", "_あ.wav", "え")).toBe(true);
     const eOto = oto.GetRecord("A3", "_あ.wav", "え");

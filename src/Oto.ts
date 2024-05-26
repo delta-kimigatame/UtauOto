@@ -80,7 +80,7 @@ export class Oto {
         pre.toFixed(3) +
         "," +
         overlap.toFixed(3);
-      if (this.datas[dirPath]&&this.datas[dirPath][filename]) {
+      if (this.datas[dirPath] && this.datas[dirPath][filename]) {
         this.datas[dirPath][filename][alias] = new OtoRecord(dirPath, line);
       } else if (this.datas[dirPath]) {
         this.datas[dirPath][filename] = {
@@ -235,7 +235,13 @@ export class Oto {
         "は存在しません。"
     );
   }
-
+  /**
+   * 指定したOtoのレコードを返す。
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @param filename oto.iniからwavファイルまでの相対パス
+   * @param alias 現在のエイリアス
+   * @returns this.datas[dirPath][filename][alias]
+   */
   GetRecord(
     dirPath: string,
     filename: string,
@@ -248,7 +254,24 @@ export class Oto {
     }
   }
 
-  GetJson(): string {
-    return JSON.stringify(this.datas);
+  /**
+   * oto.iniを読み込んでdatasに格納する。
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @param otoPath oto.iniのファイルパス
+   */
+  InputOto(dirPath: string, oto: Blob, encoding = "SJIS"): void {
+    const reader: FileReader = new FileReader();
+    reader.addEventListener("load", () => {
+      if (typeof reader.result === "string") {
+        this.ParseOto(dirPath, reader.result);
+      } else {
+        console.error("file can't read");
+      }
+    });
+    reader.readAsText(oto, encoding);
+  }
+
+  GetJson():string{
+    return(JSON.stringify(this.datas))
   }
 }
