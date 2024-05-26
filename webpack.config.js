@@ -8,6 +8,7 @@ module.exports = {
     filename: "[name].js",
   },
   resolve: {
+    fallback: { "buffer": false },
     extensions: [".ts", ".js"],
   },
   devServer: {

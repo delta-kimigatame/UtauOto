@@ -3,6 +3,7 @@
  */
 
 import { OtoRecord } from "./OtoRecord";
+import * as iconv from "iconv-lite";
 
 export class Oto {
   private datas: {
@@ -258,6 +259,7 @@ export class Oto {
    * oto.iniを読み込んでdatasに格納する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param otoPath oto.iniのファイルパス
+   * @param encoding 読み込むotoの文字コード、標準はSJIS
    */
   InputOto(dirPath: string, oto: Blob, encoding = "SJIS"): void {
     const reader: FileReader = new FileReader();
@@ -274,9 +276,10 @@ export class Oto {
   /**
    * OtoのデータをFileオブジェクトに出力する。
    * 別途URL.createObjectURLを使用して、ダウンロードすることを想定
+   * @param encoding 読み込むotoの文字コード、標準はSJIS
    * @returns dirPath毎のoto.iniのFileオブジェクト
    */
-  OutputOto(): Array<File> {
+  OutputOto(encoding = "SJIS"): Array<File> {
     const resultUrls: Array<File> = new Array();
     for (const dirPath in this.datas) {
       const lines: Array<string> = new Array();
@@ -300,8 +303,14 @@ export class Oto {
         }
       }
       console.log(lines.join("\r\n"))
-      const iniFile = new File([lines.join("\r\n")],dirPath,{type:"text/plane;charset=utf-8"})
-      resultUrls.push(iniFile)
+      if(encoding="SJIS"){
+        const iniFile = new File([iconv.encode(lines.join("\r\n"),'Windows-31j')],dirPath,{type:"text/plane;charset=shift-jis"})
+        resultUrls.push(iniFile)
+      }else{
+        const iniFile = new File([lines.join("\r\n")],dirPath,{type:"text/plane;charset=utf-8"})
+        resultUrls.push(iniFile)
+      }
+
     }
 
     return resultUrls;
