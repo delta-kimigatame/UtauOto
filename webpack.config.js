@@ -1,7 +1,7 @@
 const path = require("path");
 module.exports = {
   entry: {
-    bundle: "./src/app.ts",
+    bundle: "./src/Oto.ts",
   },
   output: {
     path: path.join(__dirname, "dist"),
