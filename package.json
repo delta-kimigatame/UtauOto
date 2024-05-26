@@ -1,18 +1,21 @@
 {
   "name": "utauoto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
     "build": "webpack --mode=development",
-    "prepare":"npm run build",
+    "prepare": "npm run build",
     "start": "webpack serve --mode=development"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/delta-kimigatame/UtauOto.git"
   },
-  "keywords": ["UTAU","oto"],
+  "keywords": [
+    "UTAU",
+    "oto"
+  ],
   "author": "delta_kimigatame",
   "license": "MIT",
   "description": "IO UTAU Oto.ini",
