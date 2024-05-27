@@ -1,15 +1,18 @@
 const path = require("path");
 module.exports = {
   entry: {
-    index: "./src/index.ts",
-    bundle:"./src/app.ts"
+    index: "./src/index.ts"
   },
   output: {
     path: path.join(__dirname, "dist"),
     filename: "[name].js",
+    library: {
+      name: "UtauOto",
+      type: "umd",
+    },
   },
   resolve: {
-    fallback: { "buffer": false },
+    fallback: { buffer: false },
     extensions: [".ts", ".js"],
   },
   devServer: {
