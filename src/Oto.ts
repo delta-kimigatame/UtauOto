@@ -302,15 +302,20 @@ export default class Oto {
           );
         }
       }
-      console.log(lines.join("\r\n"))
-      if(encoding="SJIS"){
-        const iniFile = new File([iconv.encode(lines.join("\r\n"),'Windows-31j')],dirPath,{type:"text/plane;charset=shift-jis"})
-        resultUrls.push(iniFile)
-      }else{
-        const iniFile = new File([lines.join("\r\n")],dirPath,{type:"text/plane;charset=utf-8"})
-        resultUrls.push(iniFile)
+      console.log(lines.join("\r\n"));
+      if ((encoding = "SJIS")) {
+        const iniFile = new File(
+          [iconv.encode(lines.join("\r\n"), "Windows-31j")],
+          dirPath,
+          { type: "text/plane;charset=shift-jis" }
+        );
+        resultUrls.push(iniFile);
+      } else {
+        const iniFile = new File([lines.join("\r\n")], dirPath, {
+          type: "text/plane;charset=utf-8",
+        });
+        resultUrls.push(iniFile);
       }
-
     }
 
     return resultUrls;
@@ -318,5 +323,73 @@ export default class Oto {
 
   GetJson(): string {
     return JSON.stringify(this.datas);
+  }
+
+  /**
+   * oto.iniの一覧を文字列で返す
+   * @returns oto.iniの一覧
+   */
+  GetLines(): { [key: string]: Array<string> } {
+    const result: { [key: string]: Array<string> } = {};
+    for (const dirPath in this.datas) {
+      const lines: Array<string> = new Array();
+      for (const filename in this.datas[dirPath]) {
+        for (const alias in this.datas[dirPath][filename]) {
+          lines.push(
+            this.datas[dirPath][filename][alias].filename +
+              "=" +
+              this.datas[dirPath][filename][alias].alias +
+              "," +
+              this.datas[dirPath][filename][alias].offset.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].velocity.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].blank.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].pre.toFixed(3) +
+              "," +
+              this.datas[dirPath][filename][alias].overlap.toFixed(3)
+          );
+        }
+      }
+      result[dirPath] = lines;
+    }
+    return result;
+  }
+
+  /**
+   * サブディレクトリを指定してファイル名一覧を取得する。
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @returns oto.iniからwavファイルまでの相対パスの一覧
+   */
+  GetFileNames(dirPath: string): Array<string> {
+    const result: Array<string> = new Array();
+    if (Object.keys(this.datas).includes(dirPath)) {
+      for (const filename in this.datas[dirPath]) {
+        if (!result.includes(filename)) {
+          result.push(filename);
+        }
+      }
+    }
+    return result;
+  }
+  /**
+   * サブディレクトリとファイル名を指定してエイリアスの一覧を取得する。
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @param filename oto.iniからwavファイルまでの相対パス
+   * @returns 指定したファイルのエイリアスの一覧
+   */
+  GetAliases(dirPath: string, filename: string): Array<string> {
+    const result: Array<string> = new Array();
+    if (Object.keys(this.datas).includes(dirPath)) {
+      if (Object.keys(this.datas[dirPath]).includes(filename)) {
+        for (const alias in this.datas[dirPath][filename]) {
+          if (!result.includes(alias)) {
+            result.push(alias);
+          }
+        }
+      }
+    }
+    return result;
   }
 }

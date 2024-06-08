@@ -116,4 +116,24 @@ export default class Oto {
      */
     OutputOto(encoding?: string): Array<File>;
     GetJson(): string;
+    /**
+     * oto.iniの一覧を文字列で返す
+     * @returns oto.iniの一覧
+     */
+    GetLines(): {
+        [key: string]: Array<string>;
+    };
+    /**
+     * サブディレクトリを指定してファイル名一覧を取得する。
+     * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+     * @returns oto.iniからwavファイルまでの相対パスの一覧
+     */
+    GetFileNames(dirPath: string): Array<string>;
+    /**
+     * サブディレクトリとファイル名を指定してエイリアスの一覧を取得する。
+     * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+     * @param filename oto.iniからwavファイルまでの相対パス
+     * @returns 指定したファイルのエイリアスの一覧
+     */
+    GetAliases(dirPath: string, filename: string): Array<string>;
 }
