@@ -109,6 +109,13 @@ export default class Oto {
      */
     InputOto(dirPath: string, oto: Blob, encoding?: string): void;
     /**
+     * oto.iniを読み込んでdatasに格納する(async/await対応)
+     * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+     * @param otoPath oto.iniのファイルパス
+     * @param encoding 読み込むotoの文字コード、標準はSJIS
+     */
+    InputOtoAsync(dirPath: string, oto: Blob, encoding?: string): Promise<void>;
+    /**
      * OtoのデータをFileオブジェクトに出力する。
      * 別途URL.createObjectURLを使用して、ダウンロードすることを想定
      * @param encoding 読み込むotoの文字コード、標準はSJIS

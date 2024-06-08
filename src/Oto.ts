@@ -272,6 +272,31 @@ export default class Oto {
     });
     reader.readAsText(oto, encoding);
   }
+  /**
+   * oto.iniを読み込んでdatasに格納する(async/await対応)
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @param otoPath oto.iniのファイルパス
+   * @param encoding 読み込むotoの文字コード、標準はSJIS
+   */
+  async InputOtoAsync(
+    dirPath: string,
+    oto: Blob,
+    encoding = "SJIS"
+  ): Promise<void> {
+    const reader: FileReader = new FileReader();
+    reader.readAsText(oto, encoding);
+    return new Promise((resolve, reject) => {
+      reader.addEventListener("load", () => {
+        if (typeof reader.result === "string") {
+          this.ParseOto(dirPath, reader.result);
+          resolve()
+        } else {
+          console.error("file can't read");
+          reject("file can't read")
+        }
+      });
+    });
+  }
 
   /**
    * OtoのデータをFileオブジェクトに出力する。
