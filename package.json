@@ -1,13 +1,14 @@
 {
   "name": "utauoto",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "webpack --mode=production",
     "prepare": "npm run build",
     "makedoc": "npx typedoc --entryPointStrategy expand ./src",
-    "start": "webpack serve --mode=development"
+    "start": "webpack serve --mode=development",
+    "test":"npx jest"
   },
   "repository": {
     "type": "git",

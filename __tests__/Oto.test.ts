@@ -289,4 +289,28 @@ describe("Otoのテスト", () => {
       expect(eOto.overlap).toBe(5.0);
     }
   });
+  test("removeFilename", () => {
+    const oto = new Oto();
+    oto.ParseOto(
+      "A3",
+      "_あ.wav=あ,1,2,3,4,5\r\n_い.wav=い,6,7,8,9,10\r\n_う.wav=う,11,12,13,14,15\r\n_う.wav=* う,16,17,18,19,20"
+    );
+    oto.RemoveFileName("A3","_う.wav")
+    expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_い.wav", "い")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "う")).toBe(false);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "* う")).toBe(false);
+  });
+  test("removeAlias", () => {
+    const oto = new Oto();
+    oto.ParseOto(
+      "A3",
+      "_あ.wav=あ,1,2,3,4,5\r\n_い.wav=* う,6,7,8,9,10\r\n_う.wav=う,11,12,13,14,15\r\n_う.wav=* う,16,17,18,19,20"
+    );
+    oto.RemoveAlias("A3","_う.wav","* う")
+    expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_い.wav", "* う")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "う")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "* う")).toBe(false);
+  });
 });

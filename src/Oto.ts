@@ -381,6 +381,35 @@ export default class Oto {
   }
 
   /**
+   * サブディレクトリとファイル名を指定して、指定したファイル名のレコードをすべて削除する。
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @param filename 削除するwavファイルのoto.iniからの相対パス
+   */
+  RemoveFileName(dirPath:string,filename:string){
+    if (Object.keys(this.datas).includes(dirPath)) {
+      if(Object.keys(this.datas[dirPath]).includes(filename)){
+        delete this.datas[dirPath][filename]
+      }
+    }
+  }
+
+  /**
+   * サブディレクトリとファイル名とエイリアスを指定して、指定したレコードを削除する。
+   * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
+   * @param filename oto.iniからwavファイルまでの相対パス
+   * @param alias 削除するエイリアス
+   */
+  RemoveAlias(dirPath:string,filename:string,alias:string){
+    if (Object.keys(this.datas).includes(dirPath)) {
+      if(Object.keys(this.datas[dirPath]).includes(filename)){
+        if(Object.keys(this.datas[dirPath][filename]).includes(alias))
+        delete this.datas[dirPath][filename][alias]
+      }
+    }
+
+  }
+
+  /**
    * サブディレクトリを指定してファイル名一覧を取得する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @returns oto.iniからwavファイルまでの相対パスの一覧
