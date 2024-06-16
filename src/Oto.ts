@@ -27,7 +27,6 @@ export default class Oto {
         return;
       }
       const record = new OtoRecord(dirPath, line);
-      console.log(line);
       if (this.datas[dirPath] && this.datas[dirPath][record.filename]) {
         this.datas[dirPath][record.filename][record.alias] = record;
       } else if (this.datas[dirPath]) {
@@ -327,7 +326,6 @@ export default class Oto {
           );
         }
       }
-      console.log(lines.join("\r\n"));
       if ((encoding = "SJIS")) {
         const iniFile = new File(
           [iconv.encode(lines.join("\r\n"), "Windows-31j")],
