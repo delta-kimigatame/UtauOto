@@ -20,7 +20,11 @@ export default class Oto {
    * @param data oto.iniのデータ
    */
   ParseOto(dirPath: string, data: string) {
-    const lines: string[] = data.replace("\r\n", "\n").split("\n");
+    let input_data = data;
+    if (data.charCodeAt(0) === 0xfeff) {
+      input_data = data.slice(1);
+    }
+    const lines: string[] = input_data.replace("\r\n", "\n").split("\n");
     lines.forEach((line) => {
       if (line === "") {
         //**空行は無視する */
@@ -288,10 +292,10 @@ export default class Oto {
       reader.addEventListener("load", () => {
         if (typeof reader.result === "string") {
           this.ParseOto(dirPath, reader.result);
-          resolve()
+          resolve();
         } else {
           console.error("file can't read");
-          reject("file can't read")
+          reject("file can't read");
         }
       });
     });
@@ -385,10 +389,10 @@ export default class Oto {
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param filename 削除するwavファイルのoto.iniからの相対パス
    */
-  RemoveFileName(dirPath:string,filename:string){
+  RemoveFileName(dirPath: string, filename: string) {
     if (Object.keys(this.datas).includes(dirPath)) {
-      if(Object.keys(this.datas[dirPath]).includes(filename)){
-        delete this.datas[dirPath][filename]
+      if (Object.keys(this.datas[dirPath]).includes(filename)) {
+        delete this.datas[dirPath][filename];
       }
     }
   }
@@ -399,14 +403,13 @@ export default class Oto {
    * @param filename oto.iniからwavファイルまでの相対パス
    * @param alias 削除するエイリアス
    */
-  RemoveAlias(dirPath:string,filename:string,alias:string){
+  RemoveAlias(dirPath: string, filename: string, alias: string) {
     if (Object.keys(this.datas).includes(dirPath)) {
-      if(Object.keys(this.datas[dirPath]).includes(filename)){
-        if(Object.keys(this.datas[dirPath][filename]).includes(alias))
-        delete this.datas[dirPath][filename][alias]
+      if (Object.keys(this.datas[dirPath]).includes(filename)) {
+        if (Object.keys(this.datas[dirPath][filename]).includes(alias))
+          delete this.datas[dirPath][filename][alias];
       }
     }
-
   }
 
   /**
