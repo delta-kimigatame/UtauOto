@@ -10,12 +10,15 @@ export default class Oto {
     [dirPath: string]: { [filename: string]: { [alias: string]: OtoRecord } };
   };
 
+  private records: { [alias: string]: OtoRecord };
+
   constructor() {
     this.datas = {};
+    this.records = {};
   }
 
   /**
-   * oto.iniのデータを分割し、datasに格納する。
+   * oto.iniのデータを分割し、datasとaliasに格納する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param data oto.iniのデータ
    */
@@ -37,6 +40,9 @@ export default class Oto {
         this.datas[dirPath][record.filename] = { [record.alias]: record };
       } else {
         this.datas[dirPath] = { [record.filename]: { [record.alias]: record } };
+      }
+      if (!Object.keys(this.records).includes(record.alias)) {
+        this.records[record.alias] = record;
       }
     });
   }
@@ -253,6 +259,19 @@ export default class Oto {
   ): OtoRecord | null {
     if (this.HasOtoRecord(dirPath, filename, alias)) {
       return this.datas[dirPath][filename][alias];
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * エイリアスに該当するoto.iniのレコードを返す
+   * @param alias
+   * @returns
+   */
+  GetRecordFromAlias(alias: string): OtoRecord | null {
+    if (Object.keys(this.records).includes(alias)) {
+      return this.records[alias];
     } else {
       return null;
     }

@@ -4,9 +4,10 @@
 import OtoRecord from "./OtoRecord";
 export default class Oto {
     private datas;
+    private records;
     constructor();
     /**
-     * oto.iniのデータを分割し、datasに格納する。
+     * oto.iniのデータを分割し、datasとaliasに格納する。
      * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
      * @param data oto.iniのデータ
      */
@@ -101,6 +102,12 @@ export default class Oto {
      * @returns this.datas[dirPath][filename][alias]
      */
     GetRecord(dirPath: string, filename: string, alias: string): OtoRecord | null;
+    /**
+     * エイリアスに該当するoto.iniのレコードを返す
+     * @param alias
+     * @returns
+     */
+    GetRecordFromAlias(alias: string): OtoRecord | null;
     /**
      * oto.iniを読み込んでdatasに格納する。
      * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス

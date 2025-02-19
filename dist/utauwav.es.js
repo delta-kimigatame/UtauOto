@@ -103,24 +103,24 @@ function ct() {
   for (var I = [], n = [], u = typeof Uint8Array < "u" ? Uint8Array : Array, s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", f = 0, g = s.length; f < g; ++f)
     I[f] = s[f], n[s.charCodeAt(f)] = f;
   n[45] = 62, n[95] = 63;
-  function l(h) {
+  function d(h) {
     var m = h.length;
     if (m % 4 > 0)
       throw new Error("Invalid string. Length must be a multiple of 4");
-    var d = h.indexOf("=");
-    d === -1 && (d = m);
-    var B = d === m ? 0 : 4 - d % 4;
-    return [d, B];
+    var l = h.indexOf("=");
+    l === -1 && (l = m);
+    var B = l === m ? 0 : 4 - l % 4;
+    return [l, B];
   }
   function a(h) {
-    var m = l(h), d = m[0], B = m[1];
-    return (d + B) * 3 / 4 - B;
+    var m = d(h), l = m[0], B = m[1];
+    return (l + B) * 3 / 4 - B;
   }
-  function y(h, m, d) {
-    return (m + d) * 3 / 4 - d;
+  function y(h, m, l) {
+    return (m + l) * 3 / 4 - l;
   }
   function c(h) {
-    var m, d = l(h), B = d[0], A = d[1], v = new u(y(h, B, A)), _ = 0, F = A > 0 ? B - 4 : B, S;
+    var m, l = d(h), B = l[0], A = l[1], v = new u(y(h, B, A)), _ = 0, F = A > 0 ? B - 4 : B, S;
     for (S = 0; S < F; S += 4)
       m = n[h.charCodeAt(S)] << 18 | n[h.charCodeAt(S + 1)] << 12 | n[h.charCodeAt(S + 2)] << 6 | n[h.charCodeAt(S + 3)], v[_++] = m >> 16 & 255, v[_++] = m >> 8 & 255, v[_++] = m & 255;
     return A === 2 && (m = n[h.charCodeAt(S)] << 2 | n[h.charCodeAt(S + 1)] >> 4, v[_++] = m & 255), A === 1 && (m = n[h.charCodeAt(S)] << 10 | n[h.charCodeAt(S + 1)] << 4 | n[h.charCodeAt(S + 2)] >> 2, v[_++] = m >> 8 & 255, v[_++] = m & 255), v;
@@ -128,17 +128,17 @@ function ct() {
   function p(h) {
     return I[h >> 18 & 63] + I[h >> 12 & 63] + I[h >> 6 & 63] + I[h & 63];
   }
-  function w(h, m, d) {
-    for (var B, A = [], v = m; v < d; v += 3)
+  function w(h, m, l) {
+    for (var B, A = [], v = m; v < l; v += 3)
       B = (h[v] << 16 & 16711680) + (h[v + 1] << 8 & 65280) + (h[v + 2] & 255), A.push(p(B));
     return A.join("");
   }
   function x(h) {
-    for (var m, d = h.length, B = d % 3, A = [], v = 16383, _ = 0, F = d - B; _ < F; _ += v)
+    for (var m, l = h.length, B = l % 3, A = [], v = 16383, _ = 0, F = l - B; _ < F; _ += v)
       A.push(w(h, _, _ + v > F ? F : _ + v));
-    return B === 1 ? (m = h[d - 1], A.push(
+    return B === 1 ? (m = h[l - 1], A.push(
       I[m >> 2] + I[m << 4 & 63] + "=="
-    )) : B === 2 && (m = (h[d - 2] << 8) + h[d - 1], A.push(
+    )) : B === 2 && (m = (h[l - 2] << 8) + h[l - 1], A.push(
       I[m >> 10] + I[m >> 4 & 63] + I[m << 2 & 63] + "="
     )), A.join("");
   }
@@ -149,26 +149,26 @@ var Q = {};
 var Se;
 function ft() {
   return Se || (Se = 1, Q.read = function(I, n, u, s, f) {
-    var g, l, a = f * 8 - s - 1, y = (1 << a) - 1, c = y >> 1, p = -7, w = u ? f - 1 : 0, x = u ? -1 : 1, h = I[n + w];
+    var g, d, a = f * 8 - s - 1, y = (1 << a) - 1, c = y >> 1, p = -7, w = u ? f - 1 : 0, x = u ? -1 : 1, h = I[n + w];
     for (w += x, g = h & (1 << -p) - 1, h >>= -p, p += a; p > 0; g = g * 256 + I[n + w], w += x, p -= 8)
       ;
-    for (l = g & (1 << -p) - 1, g >>= -p, p += s; p > 0; l = l * 256 + I[n + w], w += x, p -= 8)
+    for (d = g & (1 << -p) - 1, g >>= -p, p += s; p > 0; d = d * 256 + I[n + w], w += x, p -= 8)
       ;
     if (g === 0)
       g = 1 - c;
     else {
       if (g === y)
-        return l ? NaN : (h ? -1 : 1) * (1 / 0);
-      l = l + Math.pow(2, s), g = g - c;
+        return d ? NaN : (h ? -1 : 1) * (1 / 0);
+      d = d + Math.pow(2, s), g = g - c;
     }
-    return (h ? -1 : 1) * l * Math.pow(2, g - s);
+    return (h ? -1 : 1) * d * Math.pow(2, g - s);
   }, Q.write = function(I, n, u, s, f, g) {
-    var l, a, y, c = g * 8 - f - 1, p = (1 << c) - 1, w = p >> 1, x = f === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0, h = s ? 0 : g - 1, m = s ? 1 : -1, d = n < 0 || n === 0 && 1 / n < 0 ? 1 : 0;
-    for (n = Math.abs(n), isNaN(n) || n === 1 / 0 ? (a = isNaN(n) ? 1 : 0, l = p) : (l = Math.floor(Math.log(n) / Math.LN2), n * (y = Math.pow(2, -l)) < 1 && (l--, y *= 2), l + w >= 1 ? n += x / y : n += x * Math.pow(2, 1 - w), n * y >= 2 && (l++, y /= 2), l + w >= p ? (a = 0, l = p) : l + w >= 1 ? (a = (n * y - 1) * Math.pow(2, f), l = l + w) : (a = n * Math.pow(2, w - 1) * Math.pow(2, f), l = 0)); f >= 8; I[u + h] = a & 255, h += m, a /= 256, f -= 8)
+    var d, a, y, c = g * 8 - f - 1, p = (1 << c) - 1, w = p >> 1, x = f === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0, h = s ? 0 : g - 1, m = s ? 1 : -1, l = n < 0 || n === 0 && 1 / n < 0 ? 1 : 0;
+    for (n = Math.abs(n), isNaN(n) || n === 1 / 0 ? (a = isNaN(n) ? 1 : 0, d = p) : (d = Math.floor(Math.log(n) / Math.LN2), n * (y = Math.pow(2, -d)) < 1 && (d--, y *= 2), d + w >= 1 ? n += x / y : n += x * Math.pow(2, 1 - w), n * y >= 2 && (d++, y /= 2), d + w >= p ? (a = 0, d = p) : d + w >= 1 ? (a = (n * y - 1) * Math.pow(2, f), d = d + w) : (a = n * Math.pow(2, w - 1) * Math.pow(2, f), d = 0)); f >= 8; I[u + h] = a & 255, h += m, a /= 256, f -= 8)
       ;
-    for (l = l << f | a, c += f; c > 0; I[u + h] = l & 255, h += m, l /= 256, c -= 8)
+    for (d = d << f | a, c += f; c > 0; I[u + h] = d & 255, h += m, d /= 256, c -= 8)
       ;
-    I[u + h - m] |= d * 128;
+    I[u + h - m] |= l * 128;
   }), Q;
 }
 /*!
@@ -209,7 +209,7 @@ function ut() {
           return this.byteOffset;
       }
     });
-    function l(r) {
+    function d(r) {
       if (r > f)
         throw new RangeError('The value "' + r + '" is invalid for option "size"');
       const e = new Uint8Array(r);
@@ -236,7 +236,7 @@ function ut() {
           "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof r
         );
       if (q(r, ArrayBuffer) || r && q(r.buffer, ArrayBuffer) || typeof SharedArrayBuffer < "u" && (q(r, SharedArrayBuffer) || r && q(r.buffer, SharedArrayBuffer)))
-        return d(r, e, t);
+        return l(r, e, t);
       if (typeof r == "number")
         throw new TypeError(
           'The "value" argument must not be of type number. Received type number'
@@ -262,13 +262,13 @@ function ut() {
         throw new RangeError('The value "' + r + '" is invalid for option "size"');
     }
     function p(r, e, t) {
-      return c(r), r <= 0 ? l(r) : e !== void 0 ? typeof t == "string" ? l(r).fill(e, t) : l(r).fill(e) : l(r);
+      return c(r), r <= 0 ? d(r) : e !== void 0 ? typeof t == "string" ? d(r).fill(e, t) : d(r).fill(e) : d(r);
     }
     a.alloc = function(r, e, t) {
       return p(r, e, t);
     };
     function w(r) {
-      return c(r), l(r < 0 ? 0 : A(r) | 0);
+      return c(r), d(r < 0 ? 0 : A(r) | 0);
     }
     a.allocUnsafe = function(r) {
       return w(r);
@@ -279,12 +279,12 @@ function ut() {
       if ((typeof e != "string" || e === "") && (e = "utf8"), !a.isEncoding(e))
         throw new TypeError("Unknown encoding: " + e);
       const t = _(r, e) | 0;
-      let i = l(t);
+      let i = d(t);
       const o = i.write(r, e);
       return o !== t && (i = i.slice(0, o)), i;
     }
     function h(r) {
-      const e = r.length < 0 ? 0 : A(r.length) | 0, t = l(e);
+      const e = r.length < 0 ? 0 : A(r.length) | 0, t = d(e);
       for (let i = 0; i < e; i += 1)
         t[i] = r[i] & 255;
       return t;
@@ -292,11 +292,11 @@ function ut() {
     function m(r) {
       if (q(r, Uint8Array)) {
         const e = new Uint8Array(r);
-        return d(e.buffer, e.byteOffset, e.byteLength);
+        return l(e.buffer, e.byteOffset, e.byteLength);
       }
       return h(r);
     }
-    function d(r, e, t) {
+    function l(r, e, t) {
       if (e < 0 || r.byteLength < e)
         throw new RangeError('"offset" is outside of buffer bounds');
       if (r.byteLength < e + (t || 0))
@@ -306,11 +306,11 @@ function ut() {
     }
     function B(r) {
       if (a.isBuffer(r)) {
-        const e = A(r.length) | 0, t = l(e);
+        const e = A(r.length) | 0, t = d(e);
         return t.length === 0 || r.copy(t, 0, 0, e), t;
       }
       if (r.length !== void 0)
-        return typeof r.length != "number" || ne(r.length) ? l(0) : h(r);
+        return typeof r.length != "number" || ne(r.length) ? d(0) : h(r);
       if (r.type === "Buffer" && Array.isArray(r.data))
         return h(r.data);
     }
@@ -514,12 +514,12 @@ function ut() {
         if (o) t = 0;
         else return -1;
       if (typeof e == "string" && (e = a.from(e, i)), a.isBuffer(e))
-        return e.length === 0 ? -1 : N(r, e, t, i, o);
+        return e.length === 0 ? -1 : O(r, e, t, i, o);
       if (typeof e == "number")
-        return e = e & 255, typeof Uint8Array.prototype.indexOf == "function" ? o ? Uint8Array.prototype.indexOf.call(r, e, t) : Uint8Array.prototype.lastIndexOf.call(r, e, t) : N(r, [e], t, i, o);
+        return e = e & 255, typeof Uint8Array.prototype.indexOf == "function" ? o ? Uint8Array.prototype.indexOf.call(r, e, t) : Uint8Array.prototype.lastIndexOf.call(r, e, t) : O(r, [e], t, i, o);
       throw new TypeError("val must be string, number or Buffer");
     }
-    function N(r, e, t, i, o) {
+    function O(r, e, t, i, o) {
       let b = 1, E = r.length, U = e.length;
       if (i !== void 0 && (i = String(i).toLowerCase(), i === "ucs2" || i === "ucs-2" || i === "utf16le" || i === "utf-16le")) {
         if (r.length < 2 || e.length < 2)
@@ -790,7 +790,7 @@ function ut() {
     }, a.prototype.readDoubleBE = function(e, t) {
       return e = e >>> 0, t || L(e, 8, this.length), u.read(this, e, !1, 52, 8);
     };
-    function O(r, e, t, i, o, b) {
+    function N(r, e, t, i, o, b) {
       if (!a.isBuffer(r)) throw new TypeError('"buffer" argument must be a Buffer instance');
       if (e > o || e < b) throw new RangeError('"value" argument is out of bounds');
       if (t + i > r.length) throw new RangeError("Index out of range");
@@ -798,7 +798,7 @@ function ut() {
     a.prototype.writeUintLE = a.prototype.writeUIntLE = function(e, t, i, o) {
       if (e = +e, t = t >>> 0, i = i >>> 0, !o) {
         const U = Math.pow(2, 8 * i) - 1;
-        O(this, e, t, i, U, 0);
+        N(this, e, t, i, U, 0);
       }
       let b = 1, E = 0;
       for (this[t] = e & 255; ++E < i && (b *= 256); )
@@ -807,22 +807,22 @@ function ut() {
     }, a.prototype.writeUintBE = a.prototype.writeUIntBE = function(e, t, i, o) {
       if (e = +e, t = t >>> 0, i = i >>> 0, !o) {
         const U = Math.pow(2, 8 * i) - 1;
-        O(this, e, t, i, U, 0);
+        N(this, e, t, i, U, 0);
       }
       let b = i - 1, E = 1;
       for (this[t + b] = e & 255; --b >= 0 && (E *= 256); )
         this[t + b] = e / E & 255;
       return t + i;
     }, a.prototype.writeUint8 = a.prototype.writeUInt8 = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 1, 255, 0), this[t] = e & 255, t + 1;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 1, 255, 0), this[t] = e & 255, t + 1;
     }, a.prototype.writeUint16LE = a.prototype.writeUInt16LE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 2, 65535, 0), this[t] = e & 255, this[t + 1] = e >>> 8, t + 2;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 2, 65535, 0), this[t] = e & 255, this[t + 1] = e >>> 8, t + 2;
     }, a.prototype.writeUint16BE = a.prototype.writeUInt16BE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 2, 65535, 0), this[t] = e >>> 8, this[t + 1] = e & 255, t + 2;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 2, 65535, 0), this[t] = e >>> 8, this[t + 1] = e & 255, t + 2;
     }, a.prototype.writeUint32LE = a.prototype.writeUInt32LE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 4, 4294967295, 0), this[t + 3] = e >>> 24, this[t + 2] = e >>> 16, this[t + 1] = e >>> 8, this[t] = e & 255, t + 4;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 4, 4294967295, 0), this[t + 3] = e >>> 24, this[t + 2] = e >>> 16, this[t + 1] = e >>> 8, this[t] = e & 255, t + 4;
     }, a.prototype.writeUint32BE = a.prototype.writeUInt32BE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 4, 4294967295, 0), this[t] = e >>> 24, this[t + 1] = e >>> 16, this[t + 2] = e >>> 8, this[t + 3] = e & 255, t + 4;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 4, 4294967295, 0), this[t] = e >>> 24, this[t + 1] = e >>> 16, this[t + 2] = e >>> 8, this[t + 3] = e & 255, t + 4;
     };
     function xe(r, e, t, i, o) {
       _e(e, i, o, r, t, 7);
@@ -845,7 +845,7 @@ function ut() {
     }), a.prototype.writeIntLE = function(e, t, i, o) {
       if (e = +e, t = t >>> 0, !o) {
         const R = Math.pow(2, 8 * i - 1);
-        O(this, e, t, i, R - 1, -R);
+        N(this, e, t, i, R - 1, -R);
       }
       let b = 0, E = 1, U = 0;
       for (this[t] = e & 255; ++b < i && (E *= 256); )
@@ -854,22 +854,22 @@ function ut() {
     }, a.prototype.writeIntBE = function(e, t, i, o) {
       if (e = +e, t = t >>> 0, !o) {
         const R = Math.pow(2, 8 * i - 1);
-        O(this, e, t, i, R - 1, -R);
+        N(this, e, t, i, R - 1, -R);
       }
       let b = i - 1, E = 1, U = 0;
       for (this[t + b] = e & 255; --b >= 0 && (E *= 256); )
         e < 0 && U === 0 && this[t + b + 1] !== 0 && (U = 1), this[t + b] = (e / E >> 0) - U & 255;
       return t + i;
     }, a.prototype.writeInt8 = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 1, 127, -128), e < 0 && (e = 255 + e + 1), this[t] = e & 255, t + 1;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 1, 127, -128), e < 0 && (e = 255 + e + 1), this[t] = e & 255, t + 1;
     }, a.prototype.writeInt16LE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 2, 32767, -32768), this[t] = e & 255, this[t + 1] = e >>> 8, t + 2;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 2, 32767, -32768), this[t] = e & 255, this[t + 1] = e >>> 8, t + 2;
     }, a.prototype.writeInt16BE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 2, 32767, -32768), this[t] = e >>> 8, this[t + 1] = e & 255, t + 2;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 2, 32767, -32768), this[t] = e >>> 8, this[t + 1] = e & 255, t + 2;
     }, a.prototype.writeInt32LE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 4, 2147483647, -2147483648), this[t] = e & 255, this[t + 1] = e >>> 8, this[t + 2] = e >>> 16, this[t + 3] = e >>> 24, t + 4;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 4, 2147483647, -2147483648), this[t] = e & 255, this[t + 1] = e >>> 8, this[t + 2] = e >>> 16, this[t + 3] = e >>> 24, t + 4;
     }, a.prototype.writeInt32BE = function(e, t, i) {
-      return e = +e, t = t >>> 0, i || O(this, e, t, 4, 2147483647, -2147483648), e < 0 && (e = 4294967295 + e + 1), this[t] = e >>> 24, this[t + 1] = e >>> 16, this[t + 2] = e >>> 8, this[t + 3] = e & 255, t + 4;
+      return e = +e, t = t >>> 0, i || N(this, e, t, 4, 2147483647, -2147483648), e < 0 && (e = 4294967295 + e + 1), this[t] = e >>> 24, this[t + 1] = e >>> 16, this[t + 2] = e >>> 8, this[t + 3] = e & 255, t + 4;
     }, a.prototype.writeBigInt64LE = G(function(e, t = 0) {
       return xe(this, e, t, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
     }), a.prototype.writeBigInt64BE = G(function(e, t = 0) {
@@ -1128,19 +1128,19 @@ function J() {
   var f = u.Buffer = {};
   for (s in n)
     n.hasOwnProperty(s) && (s === "allocUnsafe" || s === "allocUnsafeSlow" || (f[s] = n[s]));
-  if (u.Buffer.prototype = n.prototype, (!f.from || f.from === Uint8Array.from) && (f.from = function(g, l, a) {
+  if (u.Buffer.prototype = n.prototype, (!f.from || f.from === Uint8Array.from) && (f.from = function(g, d, a) {
     if (typeof g == "number")
       throw new TypeError('The "value" argument must not be of type number. Received type ' + typeof g);
     if (g && typeof g.length > "u")
       throw new TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof g);
-    return n(g, l, a);
-  }), f.alloc || (f.alloc = function(g, l, a) {
+    return n(g, d, a);
+  }), f.alloc || (f.alloc = function(g, d, a) {
     if (typeof g != "number")
       throw new TypeError('The "size" argument must be of type number. Received type ' + typeof g);
     if (g < 0 || g >= 2 * (1 << 30))
       throw new RangeError('The value "' + g + '" is invalid for option "size"');
     var y = n(g);
-    return !l || l.length === 0 ? y.fill(0) : typeof a == "string" ? y.fill(l, a) : y.fill(l), y;
+    return !d || d.length === 0 ? y.fill(0) : typeof a == "string" ? y.fill(d, a) : y.fill(d), y;
   }), !u.kStringMaxLength)
     try {
       u.kStringMaxLength = process.binding("buffer").kStringMaxLength;
@@ -1198,7 +1198,7 @@ function lt() {
     _internal: n
   };
   function n(y, c) {
-    this.enc = y.encodingName, this.bomAware = y.bomAware, this.enc === "base64" ? this.encoder = g : this.enc === "cesu8" && (this.enc = "utf8", this.encoder = l, I.from("eda0bdedb2a9", "hex").toString() !== "💩" && (this.decoder = a, this.defaultCharUnicode = c.defaultCharUnicode));
+    this.enc = y.encodingName, this.bomAware = y.bomAware, this.enc === "base64" ? this.encoder = g : this.enc === "cesu8" && (this.enc = "utf8", this.encoder = d, I.from("eda0bdedb2a9", "hex").toString() !== "💩" && (this.decoder = a, this.defaultCharUnicode = c.defaultCharUnicode));
   }
   n.prototype.encoder = f, n.prototype.decoder = s;
   var u = Pe.StringDecoder;
@@ -1229,15 +1229,15 @@ function lt() {
   }, g.prototype.end = function() {
     return I.from(this.prevStr, "base64");
   };
-  function l(y, c) {
+  function d(y, c) {
   }
-  l.prototype.write = function(y) {
+  d.prototype.write = function(y) {
     for (var c = I.alloc(y.length * 3), p = 0, w = 0; w < y.length; w++) {
       var x = y.charCodeAt(w);
       x < 128 ? c[p++] = x : x < 2048 ? (c[p++] = 192 + (x >>> 6), c[p++] = 128 + (x & 63)) : (c[p++] = 224 + (x >>> 12), c[p++] = 128 + (x >>> 6 & 63), c[p++] = 128 + (x & 63));
     }
     return c.slice(0, p);
-  }, l.prototype.end = function() {
+  }, d.prototype.end = function() {
   };
   function a(y, c) {
     this.acc = 0, this.contBytes = 0, this.accBytes = 0, this.defaultCharUnicode = c.defaultCharUnicode;
@@ -1268,16 +1268,16 @@ function bt() {
   }
   u.prototype.write = function(c) {
     for (var p = I.from(c, "ucs2"), w = I.alloc(p.length * 2), x = this.isLE ? w.writeUInt32LE : w.writeUInt32BE, h = 0, m = 0; m < p.length; m += 2) {
-      var d = p.readUInt16LE(m), B = 55296 <= d && d < 56320, A = 56320 <= d && d < 57344;
+      var l = p.readUInt16LE(m), B = 55296 <= l && l < 56320, A = 56320 <= l && l < 57344;
       if (this.highSurrogate)
         if (B || !A)
           x.call(w, this.highSurrogate, h), h += 4;
         else {
-          var v = (this.highSurrogate - 55296 << 10 | d - 56320) + 65536;
+          var v = (this.highSurrogate - 55296 << 10 | l - 56320) + 65536;
           x.call(w, v, h), h += 4, this.highSurrogate = 0;
           continue;
         }
-      B ? this.highSurrogate = d : (x.call(w, d, h), h += 4, this.highSurrogate = 0);
+      B ? this.highSurrogate = l : (x.call(w, l, h), h += 4, this.highSurrogate = 0);
     }
     return h < w.length && (w = w.slice(0, h)), w;
   }, u.prototype.end = function() {
@@ -1292,16 +1292,16 @@ function bt() {
   s.prototype.write = function(c) {
     if (c.length === 0)
       return "";
-    var p = 0, w = 0, x = I.alloc(c.length + 4), h = 0, m = this.isLE, d = this.overflow, B = this.badChar;
-    if (d.length > 0) {
-      for (; p < c.length && d.length < 4; p++)
-        d.push(c[p]);
-      d.length === 4 && (m ? w = d[p] | d[p + 1] << 8 | d[p + 2] << 16 | d[p + 3] << 24 : w = d[p + 3] | d[p + 2] << 8 | d[p + 1] << 16 | d[p] << 24, d.length = 0, h = f(x, h, w, B));
+    var p = 0, w = 0, x = I.alloc(c.length + 4), h = 0, m = this.isLE, l = this.overflow, B = this.badChar;
+    if (l.length > 0) {
+      for (; p < c.length && l.length < 4; p++)
+        l.push(c[p]);
+      l.length === 4 && (m ? w = l[p] | l[p + 1] << 8 | l[p + 2] << 16 | l[p + 3] << 24 : w = l[p + 3] | l[p + 2] << 8 | l[p + 1] << 16 | l[p] << 24, l.length = 0, h = f(x, h, w, B));
     }
     for (; p < c.length - 3; p += 4)
       m ? w = c[p] | c[p + 1] << 8 | c[p + 2] << 16 | c[p + 3] << 24 : w = c[p + 3] | c[p + 2] << 8 | c[p + 1] << 16 | c[p] << 24, h = f(x, h, w, B);
     for (; p < c.length; p++)
-      d.push(c[p]);
+      l.push(c[p]);
     return x.slice(0, h).toString("ucs2");
   };
   function f(c, p, w, x) {
@@ -1319,13 +1319,13 @@ function bt() {
   function g(c, p) {
     this.iconv = p;
   }
-  g.prototype.encoder = l, g.prototype.decoder = a;
-  function l(c, p) {
+  g.prototype.encoder = d, g.prototype.decoder = a;
+  function d(c, p) {
     c = c || {}, c.addBOM === void 0 && (c.addBOM = !0), this.encoder = p.iconv.getEncoder(c.defaultEncoding || "utf-32le", c);
   }
-  l.prototype.write = function(c) {
+  d.prototype.write = function(c) {
     return this.encoder.write(c);
-  }, l.prototype.end = function() {
+  }, d.prototype.end = function() {
     return this.encoder.end();
   };
   function a(c, p) {
@@ -1354,7 +1354,7 @@ function bt() {
     return this.decoder.end();
   };
   function y(c, p) {
-    var w = [], x = 0, h = 0, m = 0, d = 0, B = 0;
+    var w = [], x = 0, h = 0, m = 0, l = 0, B = 0;
     e:
       for (var A = 0; A < c.length; A++)
         for (var v = c[A], _ = 0; _ < v.length; _++)
@@ -1365,10 +1365,10 @@ function bt() {
               if (w[0] === 0 && w[1] === 0 && w[2] === 254 && w[3] === 255)
                 return "utf-32be";
             }
-            if ((w[0] !== 0 || w[1] > 16) && m++, (w[3] !== 0 || w[2] > 16) && h++, w[0] === 0 && w[1] === 0 && (w[2] !== 0 || w[3] !== 0) && B++, (w[0] !== 0 || w[1] !== 0) && w[2] === 0 && w[3] === 0 && d++, w.length = 0, x++, x >= 100)
+            if ((w[0] !== 0 || w[1] > 16) && m++, (w[3] !== 0 || w[2] > 16) && h++, w[0] === 0 && w[1] === 0 && (w[2] !== 0 || w[3] !== 0) && B++, (w[0] !== 0 || w[1] !== 0) && w[2] === 0 && w[3] === 0 && l++, w.length = 0, x++, x >= 100)
               break e;
           }
-    return B - m > d - h ? "utf-32be" : B - m < d - h ? "utf-32le" : p || "utf-32le";
+    return B - m > l - h ? "utf-32be" : B - m < l - h ? "utf-32le" : p || "utf-32le";
   }
   return H;
 }
@@ -1407,7 +1407,7 @@ function yt() {
   function f(y, c) {
     this.iconv = c;
   }
-  f.prototype.encoder = g, f.prototype.decoder = l;
+  f.prototype.encoder = g, f.prototype.decoder = d;
   function g(y, c) {
     y = y || {}, y.addBOM === void 0 && (y.addBOM = !0), this.encoder = c.iconv.getEncoder("utf-16le", y);
   }
@@ -1416,10 +1416,10 @@ function yt() {
   }, g.prototype.end = function() {
     return this.encoder.end();
   };
-  function l(y, c) {
+  function d(y, c) {
     this.decoder = null, this.initialBufs = [], this.initialBufsLen = 0, this.options = y || {}, this.iconv = c.iconv;
   }
-  l.prototype.write = function(y) {
+  d.prototype.write = function(y) {
     if (!this.decoder) {
       if (this.initialBufs.push(y), this.initialBufsLen += y.length, this.initialBufsLen < 16)
         return "";
@@ -1430,7 +1430,7 @@ function yt() {
       return this.initialBufs.length = this.initialBufsLen = 0, p;
     }
     return this.decoder.write(y);
-  }, l.prototype.end = function() {
+  }, d.prototype.end = function() {
     if (!this.decoder) {
       var y = a(this.initialBufs, this.options.defaultEncoding);
       this.decoder = this.iconv.getDecoder(y, this.options);
@@ -1445,8 +1445,8 @@ function yt() {
     var p = [], w = 0, x = 0, h = 0;
     e:
       for (var m = 0; m < y.length; m++)
-        for (var d = y[m], B = 0; B < d.length; B++)
-          if (p.push(d[B]), p.length === 2) {
+        for (var l = y[m], B = 0; B < l.length; B++)
+          if (p.push(l[B]), p.length === 2) {
             if (w === 0) {
               if (p[0] === 255 && p[1] === 254) return "utf-16le";
               if (p[0] === 254 && p[1] === 255) return "utf-16be";
@@ -1464,100 +1464,100 @@ function gt() {
   Le = 1;
   var I = J().Buffer;
   X.utf7 = n, X.unicode11utf7 = "utf7";
-  function n(d, B) {
+  function n(l, B) {
     this.iconv = B;
   }
   n.prototype.encoder = s, n.prototype.decoder = f, n.prototype.bomAware = !0;
   var u = /[^A-Za-z0-9'\(\),-\.\/:\? \n\r\t]+/g;
-  function s(d, B) {
+  function s(l, B) {
     this.iconv = B.iconv;
   }
-  s.prototype.write = function(d) {
-    return I.from(d.replace(u, (function(B) {
+  s.prototype.write = function(l) {
+    return I.from(l.replace(u, (function(B) {
       return "+" + (B === "+" ? "" : this.iconv.encode(B, "utf16-be").toString("base64").replace(/=+$/, "")) + "-";
     }).bind(this)));
   }, s.prototype.end = function() {
   };
-  function f(d, B) {
+  function f(l, B) {
     this.iconv = B.iconv, this.inBase64 = !1, this.base64Accum = "";
   }
-  for (var g = /[A-Za-z0-9\/+]/, l = [], a = 0; a < 256; a++)
-    l[a] = g.test(String.fromCharCode(a));
+  for (var g = /[A-Za-z0-9\/+]/, d = [], a = 0; a < 256; a++)
+    d[a] = g.test(String.fromCharCode(a));
   var y = 43, c = 45, p = 38;
-  f.prototype.write = function(d) {
-    for (var B = "", A = 0, v = this.inBase64, _ = this.base64Accum, F = 0; F < d.length; F++)
+  f.prototype.write = function(l) {
+    for (var B = "", A = 0, v = this.inBase64, _ = this.base64Accum, F = 0; F < l.length; F++)
       if (!v)
-        d[F] == y && (B += this.iconv.decode(d.slice(A, F), "ascii"), A = F + 1, v = !0);
-      else if (!l[d[F]]) {
-        if (F == A && d[F] == c)
+        l[F] == y && (B += this.iconv.decode(l.slice(A, F), "ascii"), A = F + 1, v = !0);
+      else if (!d[l[F]]) {
+        if (F == A && l[F] == c)
           B += "+";
         else {
-          var S = _ + this.iconv.decode(d.slice(A, F), "ascii");
+          var S = _ + this.iconv.decode(l.slice(A, F), "ascii");
           B += this.iconv.decode(I.from(S, "base64"), "utf16-be");
         }
-        d[F] != c && F--, A = F + 1, v = !1, _ = "";
+        l[F] != c && F--, A = F + 1, v = !1, _ = "";
       }
     if (!v)
-      B += this.iconv.decode(d.slice(A), "ascii");
+      B += this.iconv.decode(l.slice(A), "ascii");
     else {
-      var S = _ + this.iconv.decode(d.slice(A), "ascii"), T = S.length - S.length % 8;
+      var S = _ + this.iconv.decode(l.slice(A), "ascii"), T = S.length - S.length % 8;
       _ = S.slice(T), S = S.slice(0, T), B += this.iconv.decode(I.from(S, "base64"), "utf16-be");
     }
     return this.inBase64 = v, this.base64Accum = _, B;
   }, f.prototype.end = function() {
-    var d = "";
-    return this.inBase64 && this.base64Accum.length > 0 && (d = this.iconv.decode(I.from(this.base64Accum, "base64"), "utf16-be")), this.inBase64 = !1, this.base64Accum = "", d;
+    var l = "";
+    return this.inBase64 && this.base64Accum.length > 0 && (l = this.iconv.decode(I.from(this.base64Accum, "base64"), "utf16-be")), this.inBase64 = !1, this.base64Accum = "", l;
   }, X.utf7imap = w;
-  function w(d, B) {
+  function w(l, B) {
     this.iconv = B;
   }
   w.prototype.encoder = x, w.prototype.decoder = h, w.prototype.bomAware = !0;
-  function x(d, B) {
+  function x(l, B) {
     this.iconv = B.iconv, this.inBase64 = !1, this.base64Accum = I.alloc(6), this.base64AccumIdx = 0;
   }
-  x.prototype.write = function(d) {
-    for (var B = this.inBase64, A = this.base64Accum, v = this.base64AccumIdx, _ = I.alloc(d.length * 5 + 10), F = 0, S = 0; S < d.length; S++) {
-      var T = d.charCodeAt(S);
+  x.prototype.write = function(l) {
+    for (var B = this.inBase64, A = this.base64Accum, v = this.base64AccumIdx, _ = I.alloc(l.length * 5 + 10), F = 0, S = 0; S < l.length; S++) {
+      var T = l.charCodeAt(S);
       32 <= T && T <= 126 ? (B && (v > 0 && (F += _.write(A.slice(0, v).toString("base64").replace(/\//g, ",").replace(/=+$/, ""), F), v = 0), _[F++] = c, B = !1), B || (_[F++] = T, T === p && (_[F++] = c))) : (B || (_[F++] = p, B = !0), B && (A[v++] = T >> 8, A[v++] = T & 255, v == A.length && (F += _.write(A.toString("base64").replace(/\//g, ","), F), v = 0)));
     }
     return this.inBase64 = B, this.base64AccumIdx = v, _.slice(0, F);
   }, x.prototype.end = function() {
-    var d = I.alloc(10), B = 0;
-    return this.inBase64 && (this.base64AccumIdx > 0 && (B += d.write(this.base64Accum.slice(0, this.base64AccumIdx).toString("base64").replace(/\//g, ",").replace(/=+$/, ""), B), this.base64AccumIdx = 0), d[B++] = c, this.inBase64 = !1), d.slice(0, B);
+    var l = I.alloc(10), B = 0;
+    return this.inBase64 && (this.base64AccumIdx > 0 && (B += l.write(this.base64Accum.slice(0, this.base64AccumIdx).toString("base64").replace(/\//g, ",").replace(/=+$/, ""), B), this.base64AccumIdx = 0), l[B++] = c, this.inBase64 = !1), l.slice(0, B);
   };
-  function h(d, B) {
+  function h(l, B) {
     this.iconv = B.iconv, this.inBase64 = !1, this.base64Accum = "";
   }
-  var m = l.slice();
-  return m[44] = !0, h.prototype.write = function(d) {
-    for (var B = "", A = 0, v = this.inBase64, _ = this.base64Accum, F = 0; F < d.length; F++)
+  var m = d.slice();
+  return m[44] = !0, h.prototype.write = function(l) {
+    for (var B = "", A = 0, v = this.inBase64, _ = this.base64Accum, F = 0; F < l.length; F++)
       if (!v)
-        d[F] == p && (B += this.iconv.decode(d.slice(A, F), "ascii"), A = F + 1, v = !0);
-      else if (!m[d[F]]) {
-        if (F == A && d[F] == c)
+        l[F] == p && (B += this.iconv.decode(l.slice(A, F), "ascii"), A = F + 1, v = !0);
+      else if (!m[l[F]]) {
+        if (F == A && l[F] == c)
           B += "&";
         else {
-          var S = _ + this.iconv.decode(d.slice(A, F), "ascii").replace(/,/g, "/");
+          var S = _ + this.iconv.decode(l.slice(A, F), "ascii").replace(/,/g, "/");
           B += this.iconv.decode(I.from(S, "base64"), "utf16-be");
         }
-        d[F] != c && F--, A = F + 1, v = !1, _ = "";
+        l[F] != c && F--, A = F + 1, v = !1, _ = "";
       }
     if (!v)
-      B += this.iconv.decode(d.slice(A), "ascii");
+      B += this.iconv.decode(l.slice(A), "ascii");
     else {
-      var S = _ + this.iconv.decode(d.slice(A), "ascii").replace(/,/g, "/"), T = S.length - S.length % 8;
+      var S = _ + this.iconv.decode(l.slice(A), "ascii").replace(/,/g, "/"), T = S.length - S.length % 8;
       _ = S.slice(T), S = S.slice(0, T), B += this.iconv.decode(I.from(S, "base64"), "utf16-be");
     }
     return this.inBase64 = v, this.base64Accum = _, B;
   }, h.prototype.end = function() {
-    var d = "";
-    return this.inBase64 && this.base64Accum.length > 0 && (d = this.iconv.decode(I.from(this.base64Accum, "base64"), "utf16-be")), this.inBase64 = !1, this.base64Accum = "", d;
+    var l = "";
+    return this.inBase64 && this.base64Accum.length > 0 && (l = this.iconv.decode(I.from(this.base64Accum, "base64"), "utf16-be")), this.inBase64 = !1, this.base64Accum = "", l;
   }, X;
 }
-var ue = {}, Ne;
+var ue = {}, Oe;
 function wt() {
-  if (Ne) return ue;
-  Ne = 1;
+  if (Oe) return ue;
+  Oe = 1;
   var I = J().Buffer;
   ue._sbcs = n;
   function n(f, g) {
@@ -1566,9 +1566,9 @@ function wt() {
     if (!f.chars || f.chars.length !== 128 && f.chars.length !== 256)
       throw new Error("Encoding '" + f.type + "' has incorrect 'chars' (must be of len 128 or 256)");
     if (f.chars.length === 128) {
-      for (var l = "", a = 0; a < 128; a++)
-        l += String.fromCharCode(a);
-      f.chars = l + f.chars;
+      for (var d = "", a = 0; a < 128; a++)
+        d += String.fromCharCode(a);
+      f.chars = d + f.chars;
     }
     this.decodeBuf = I.from(f.chars, "ucs2");
     for (var y = I.alloc(65536, g.defaultCharSingleByte.charCodeAt(0)), a = 0; a < f.chars.length; a++)
@@ -1580,8 +1580,8 @@ function wt() {
     this.encodeBuf = g.encodeBuf;
   }
   u.prototype.write = function(f) {
-    for (var g = I.alloc(f.length), l = 0; l < f.length; l++)
-      g[l] = this.encodeBuf[f.charCodeAt(l)];
+    for (var g = I.alloc(f.length), d = 0; d < f.length; d++)
+      g[d] = this.encodeBuf[f.charCodeAt(d)];
     return g;
   }, u.prototype.end = function() {
   };
@@ -1589,15 +1589,15 @@ function wt() {
     this.decodeBuf = g.decodeBuf;
   }
   return s.prototype.write = function(f) {
-    for (var g = this.decodeBuf, l = I.alloc(f.length * 2), a = 0, y = 0, c = 0; c < f.length; c++)
-      a = f[c] * 2, y = c * 2, l[y] = g[a], l[y + 1] = g[a + 1];
-    return l.toString("ucs2");
+    for (var g = this.decodeBuf, d = I.alloc(f.length * 2), a = 0, y = 0, c = 0; c < f.length; c++)
+      a = f[c] * 2, y = c * 2, d[y] = g[a], d[y + 1] = g[a + 1];
+    return d.toString("ucs2");
   }, s.prototype.end = function() {
   }, ue;
 }
-var he, Oe;
+var he, Ne;
 function xt() {
-  return Oe || (Oe = 1, he = {
+  return Ne || (Ne = 1, he = {
     // Not supported by iconv, not sure why.
     10029: "maccenteuro",
     maccenteuro: {
@@ -2206,7 +2206,7 @@ function Bt() {
   qe = 1;
   var I = J().Buffer;
   de._dbcs = y;
-  for (var n = -1, u = -2, s = -10, f = -1e3, g = new Array(256), l = -1, a = 0; a < 256; a++)
+  for (var n = -1, u = -2, s = -10, f = -1e3, g = new Array(256), d = -1, a = 0; a < 256; a++)
     g[a] = n;
   function y(x, h) {
     if (this.encodingName = x.encodingName, !x)
@@ -2215,16 +2215,16 @@ function Bt() {
       throw new Error("Encoding '" + this.encodingName + "' has no data.");
     var m = x.table();
     this.decodeTables = [], this.decodeTables[0] = g.slice(0), this.decodeTableSeq = [];
-    for (var d = 0; d < m.length; d++)
-      this._addDecodeChunk(m[d]);
+    for (var l = 0; l < m.length; l++)
+      this._addDecodeChunk(m[l]);
     if (typeof x.gb18030 == "function") {
       this.gb18030 = x.gb18030();
       var B = this.decodeTables.length;
       this.decodeTables.push(g.slice(0));
       var A = this.decodeTables.length;
       this.decodeTables.push(g.slice(0));
-      for (var v = this.decodeTables[0], d = 129; d <= 254; d++)
-        for (var _ = this.decodeTables[f - v[d]], F = 48; F <= 57; F++) {
+      for (var v = this.decodeTables[0], l = 129; l <= 254; l++)
+        for (var _ = this.decodeTables[f - v[l]], F = 48; F <= 57; F++) {
           if (_[F] === n)
             _[F] = f - B;
           else if (_[F] > f)
@@ -2238,16 +2238,16 @@ function Bt() {
               if (S[T] > f)
                 throw new Error("gb18030 decode tables conflict at byte 3");
             }
-            for (var N = this.decodeTables[f - S[T]], M = 48; M <= 57; M++)
-              N[M] === n && (N[M] = u);
+            for (var O = this.decodeTables[f - S[T]], M = 48; M <= 57; M++)
+              O[M] === n && (O[M] = u);
           }
         }
     }
     this.defaultCharUnicode = h.defaultCharUnicode, this.encodeTable = [], this.encodeTableSeq = [];
     var j = {};
     if (x.encodeSkipVals)
-      for (var d = 0; d < x.encodeSkipVals.length; d++) {
-        var $ = x.encodeSkipVals[d];
+      for (var l = 0; l < x.encodeSkipVals.length; l++) {
+        var $ = x.encodeSkipVals[l];
         if (typeof $ == "number")
           j[$] = !0;
         else
@@ -2263,10 +2263,10 @@ function Bt() {
     for (var h = []; x > 0; x >>>= 8)
       h.push(x & 255);
     h.length == 0 && h.push(0);
-    for (var m = this.decodeTables[0], d = h.length - 1; d > 0; d--) {
-      var B = m[h[d]];
+    for (var m = this.decodeTables[0], l = h.length - 1; l > 0; l--) {
+      var B = m[h[l]];
       if (B == n)
-        m[h[d]] = f - this.decodeTables.length, this.decodeTables.push(m = g.slice(0));
+        m[h[l]] = f - this.decodeTables.length, this.decodeTables.push(m = g.slice(0));
       else if (B <= f)
         m = this.decodeTables[f - B];
       else
@@ -2276,8 +2276,8 @@ function Bt() {
   }, y.prototype._addDecodeChunk = function(x) {
     var h = parseInt(x[0], 16), m = this._getDecodeTrieNode(h);
     h = h & 255;
-    for (var d = 1; d < x.length; d++) {
-      var B = x[d];
+    for (var l = 1; l < x.length; l++) {
+      var B = x[l];
       if (typeof B == "string")
         for (var A = 0; A < B.length; ) {
           var v = B.charCodeAt(A++);
@@ -2295,8 +2295,8 @@ function Bt() {
             m[h++] = v;
         }
       else if (typeof B == "number")
-        for (var N = m[h - 1] + 1, A = 0; A < B; A++)
-          m[h++] = N++;
+        for (var O = m[h - 1] + 1, A = 0; A < B; A++)
+          m[h++] = O++;
       else
         throw new Error("Incorrect type '" + typeof B + "' given in " + this.encodingName + " at chunk " + x[0]);
     }
@@ -2306,19 +2306,19 @@ function Bt() {
     var h = x >> 8;
     return this.encodeTable[h] === void 0 && (this.encodeTable[h] = g.slice(0)), this.encodeTable[h];
   }, y.prototype._setEncodeChar = function(x, h) {
-    var m = this._getEncodeBucket(x), d = x & 255;
-    m[d] <= s ? this.encodeTableSeq[s - m[d]][l] = h : m[d] == n && (m[d] = h);
+    var m = this._getEncodeBucket(x), l = x & 255;
+    m[l] <= s ? this.encodeTableSeq[s - m[l]][d] = h : m[l] == n && (m[l] = h);
   }, y.prototype._setEncodeSequence = function(x, h) {
-    var m = x[0], d = this._getEncodeBucket(m), B = m & 255, A;
-    d[B] <= s ? A = this.encodeTableSeq[s - d[B]] : (A = {}, d[B] !== n && (A[l] = d[B]), d[B] = s - this.encodeTableSeq.length, this.encodeTableSeq.push(A));
+    var m = x[0], l = this._getEncodeBucket(m), B = m & 255, A;
+    l[B] <= s ? A = this.encodeTableSeq[s - l[B]] : (A = {}, l[B] !== n && (A[d] = l[B]), l[B] = s - this.encodeTableSeq.length, this.encodeTableSeq.push(A));
     for (var v = 1; v < x.length - 1; v++) {
       var _ = A[m];
-      typeof _ == "object" ? A = _ : (A = A[m] = {}, _ !== void 0 && (A[l] = _));
+      typeof _ == "object" ? A = _ : (A = A[m] = {}, _ !== void 0 && (A[d] = _));
     }
     m = x[x.length - 1], A[m] = h;
   }, y.prototype._fillEncodeTable = function(x, h, m) {
-    for (var d = this.decodeTables[x], B = !1, A = {}, v = 0; v < 256; v++) {
-      var _ = d[v], F = h + v;
+    for (var l = this.decodeTables[x], B = !1, A = {}, v = 0; v < 256; v++) {
+      var _ = l[v], F = h + v;
       if (!m[F])
         if (_ >= 0)
           this._setEncodeChar(_, F), B = !0;
@@ -2336,7 +2336,7 @@ function Bt() {
     this.leadSurrogate = -1, this.seqObj = void 0, this.encodeTable = h.encodeTable, this.encodeTableSeq = h.encodeTableSeq, this.defaultCharSingleByte = h.defCharSB, this.gb18030 = h.gb18030;
   }
   c.prototype.write = function(x) {
-    for (var h = I.alloc(x.length * (this.gb18030 ? 4 : 3)), m = this.leadSurrogate, d = this.seqObj, B = -1, A = 0, v = 0; ; ) {
+    for (var h = I.alloc(x.length * (this.gb18030 ? 4 : 3)), m = this.leadSurrogate, l = this.seqObj, B = -1, A = 0, v = 0; ; ) {
       if (B === -1) {
         if (A == x.length) break;
         var _ = x.charCodeAt(A++);
@@ -2355,23 +2355,23 @@ function Bt() {
           m !== -1 ? (_ = 65536 + (m - 55296) * 1024 + (_ - 56320), m = -1) : _ = n;
       else m !== -1 && (B = _, _ = n, m = -1);
       var F = n;
-      if (d !== void 0 && _ != n) {
-        var S = d[_];
+      if (l !== void 0 && _ != n) {
+        var S = l[_];
         if (typeof S == "object") {
-          d = S;
+          l = S;
           continue;
-        } else typeof S == "number" ? F = S : S == null && (S = d[l], S !== void 0 && (F = S, B = _));
-        d = void 0;
+        } else typeof S == "number" ? F = S : S == null && (S = l[d], S !== void 0 && (F = S, B = _));
+        l = void 0;
       } else if (_ >= 0) {
         var T = this.encodeTable[_ >> 8];
         if (T !== void 0 && (F = T[_ & 255]), F <= s) {
-          d = this.encodeTableSeq[s - F];
+          l = this.encodeTableSeq[s - F];
           continue;
         }
         if (F == n && this.gb18030) {
-          var N = w(this.gb18030.uChars, _);
-          if (N != -1) {
-            var F = this.gb18030.gbChars[N] + (_ - this.gb18030.uChars[N]);
+          var O = w(this.gb18030.uChars, _);
+          if (O != -1) {
+            var F = this.gb18030.gbChars[O] + (_ - this.gb18030.uChars[O]);
             h[v++] = 129 + Math.floor(F / 12600), F = F % 12600, h[v++] = 48 + Math.floor(F / 1260), F = F % 1260, h[v++] = 129 + Math.floor(F / 10), F = F % 10, h[v++] = 48 + F;
             continue;
           }
@@ -2379,12 +2379,12 @@ function Bt() {
       }
       F === n && (F = this.defaultCharSingleByte), F < 256 ? h[v++] = F : F < 65536 ? (h[v++] = F >> 8, h[v++] = F & 255) : F < 16777216 ? (h[v++] = F >> 16, h[v++] = F >> 8 & 255, h[v++] = F & 255) : (h[v++] = F >>> 24, h[v++] = F >>> 16 & 255, h[v++] = F >>> 8 & 255, h[v++] = F & 255);
     }
-    return this.seqObj = d, this.leadSurrogate = m, h.slice(0, v);
+    return this.seqObj = l, this.leadSurrogate = m, h.slice(0, v);
   }, c.prototype.end = function() {
     if (!(this.leadSurrogate === -1 && this.seqObj === void 0)) {
       var x = I.alloc(10), h = 0;
       if (this.seqObj) {
-        var m = this.seqObj[l];
+        var m = this.seqObj[d];
         m !== void 0 && (m < 256 ? x[h++] = m : (x[h++] = m >> 8, x[h++] = m & 255)), this.seqObj = void 0;
       }
       return this.leadSurrogate !== -1 && (x[h++] = this.defaultCharSingleByte, this.leadSurrogate = -1), x.slice(0, h);
@@ -2394,17 +2394,17 @@ function Bt() {
     this.nodeIdx = 0, this.prevBytes = [], this.decodeTables = h.decodeTables, this.decodeTableSeq = h.decodeTableSeq, this.defaultCharUnicode = h.defaultCharUnicode, this.gb18030 = h.gb18030;
   }
   p.prototype.write = function(x) {
-    for (var h = I.alloc(x.length * 2), m = this.nodeIdx, d = this.prevBytes, B = this.prevBytes.length, A = -this.prevBytes.length, v, _ = 0, F = 0; _ < x.length; _++) {
-      var S = _ >= 0 ? x[_] : d[_ + B], v = this.decodeTables[m][S];
+    for (var h = I.alloc(x.length * 2), m = this.nodeIdx, l = this.prevBytes, B = this.prevBytes.length, A = -this.prevBytes.length, v, _ = 0, F = 0; _ < x.length; _++) {
+      var S = _ >= 0 ? x[_] : l[_ + B], v = this.decodeTables[m][S];
       if (!(v >= 0)) if (v === n)
         v = this.defaultCharUnicode.charCodeAt(0), _ = A;
       else if (v === u) {
         if (_ >= 3)
           var T = (x[_ - 3] - 129) * 12600 + (x[_ - 2] - 48) * 1260 + (x[_ - 1] - 129) * 10 + (S - 48);
         else
-          var T = (d[_ - 3 + B] - 129) * 12600 + ((_ - 2 >= 0 ? x[_ - 2] : d[_ - 2 + B]) - 48) * 1260 + ((_ - 1 >= 0 ? x[_ - 1] : d[_ - 1 + B]) - 129) * 10 + (S - 48);
-        var N = w(this.gb18030.gbChars, T);
-        v = this.gb18030.uChars[N] + T - this.gb18030.gbChars[N];
+          var T = (l[_ - 3 + B] - 129) * 12600 + ((_ - 2 >= 0 ? x[_ - 2] : l[_ - 2 + B]) - 48) * 1260 + ((_ - 1 >= 0 ? x[_ - 1] : l[_ - 1 + B]) - 129) * 10 + (S - 48);
+        var O = w(this.gb18030.gbChars, T);
+        v = this.gb18030.uChars[O] + T - this.gb18030.gbChars[O];
       } else if (v <= f) {
         m = f - v;
         continue;
@@ -2421,7 +2421,7 @@ function Bt() {
       }
       h[F++] = v & 255, h[F++] = v >> 8, m = 0, A = _ + 1;
     }
-    return this.nodeIdx = m, this.prevBytes = A >= 0 ? Array.prototype.slice.call(x, A) : d.slice(A + B).concat(Array.prototype.slice.call(x)), h.slice(0, F).toString("ucs2");
+    return this.nodeIdx = m, this.prevBytes = A >= 0 ? Array.prototype.slice.call(x, A) : l.slice(A + B).concat(Array.prototype.slice.call(x)), h.slice(0, F).toString("ucs2");
   }, p.prototype.end = function() {
     for (var x = ""; this.prevBytes.length > 0; ) {
       x += this.defaultCharUnicode;
@@ -2433,9 +2433,9 @@ function Bt() {
   function w(x, h) {
     if (x[0] > h)
       return -1;
-    for (var m = 0, d = x.length; m < d - 1; ) {
-      var B = m + (d - m + 1 >> 1);
-      x[B] <= h ? m = B : d = B;
+    for (var m = 0, l = x.length; m < l - 1; ) {
+      var B = m + (l - m + 1 >> 1);
+      x[B] <= h ? m = B : l = B;
     }
     return m;
   }
@@ -4024,12 +4024,12 @@ function Ct() {
   var I = J().Buffer;
   return ye = function(n) {
     var u = n.Transform;
-    function s(g, l) {
-      this.conv = g, l = l || {}, l.decodeStrings = !1, u.call(this, l);
+    function s(g, d) {
+      this.conv = g, d = d || {}, d.decodeStrings = !1, u.call(this, d);
     }
     s.prototype = Object.create(u.prototype, {
       constructor: { value: s }
-    }), s.prototype._transform = function(g, l, a) {
+    }), s.prototype._transform = function(g, d, a) {
       if (typeof g != "string")
         return a(new Error("Iconv encoding stream needs strings as its input."));
       try {
@@ -4040,25 +4040,25 @@ function Ct() {
       }
     }, s.prototype._flush = function(g) {
       try {
-        var l = this.conv.end();
-        l && l.length && this.push(l), g();
+        var d = this.conv.end();
+        d && d.length && this.push(d), g();
       } catch (a) {
         g(a);
       }
     }, s.prototype.collect = function(g) {
-      var l = [];
+      var d = [];
       return this.on("error", g), this.on("data", function(a) {
-        l.push(a);
+        d.push(a);
       }), this.on("end", function() {
-        g(null, I.concat(l));
+        g(null, I.concat(d));
       }), this;
     };
-    function f(g, l) {
-      this.conv = g, l = l || {}, l.encoding = this.encoding = "utf8", u.call(this, l);
+    function f(g, d) {
+      this.conv = g, d = d || {}, d.encoding = this.encoding = "utf8", u.call(this, d);
     }
     return f.prototype = Object.create(u.prototype, {
       constructor: { value: f }
-    }), f.prototype._transform = function(g, l, a) {
+    }), f.prototype._transform = function(g, d, a) {
       if (!I.isBuffer(g) && !(g instanceof Uint8Array))
         return a(new Error("Iconv decoding stream needs buffers as its input."));
       try {
@@ -4069,17 +4069,17 @@ function Ct() {
       }
     }, f.prototype._flush = function(g) {
       try {
-        var l = this.conv.end();
-        l && l.length && this.push(l, this.encoding), g();
+        var d = this.conv.end();
+        d && d.length && this.push(d, this.encoding), g();
       } catch (a) {
         g(a);
       }
     }, f.prototype.collect = function(g) {
-      var l = "";
+      var d = "";
       return this.on("error", g), this.on("data", function(a) {
-        l += a;
+        d += a;
       }), this.on("end", function() {
-        g(null, l);
+        g(null, d);
       }), this;
     }, {
       IconvLiteEncoderStream: s,
@@ -4091,23 +4091,23 @@ var We;
 function kt() {
   return We || (We = 1, function(I) {
     var n = J().Buffer, u = ht(), s = I.exports;
-    s.encodings = null, s.defaultCharUnicode = "�", s.defaultCharSingleByte = "?", s.encode = function(l, a, y) {
-      l = "" + (l || "");
-      var c = s.getEncoder(a, y), p = c.write(l), w = c.end();
+    s.encodings = null, s.defaultCharUnicode = "�", s.defaultCharSingleByte = "?", s.encode = function(d, a, y) {
+      d = "" + (d || "");
+      var c = s.getEncoder(a, y), p = c.write(d), w = c.end();
       return w && w.length > 0 ? n.concat([p, w]) : p;
-    }, s.decode = function(l, a, y) {
-      typeof l == "string" && (s.skipDecodeWarning || (console.error("Iconv-lite warning: decode()-ing strings is deprecated. Refer to https://github.com/ashtuchkin/iconv-lite/wiki/Use-Buffers-when-decoding"), s.skipDecodeWarning = !0), l = n.from("" + (l || ""), "binary"));
-      var c = s.getDecoder(a, y), p = c.write(l), w = c.end();
+    }, s.decode = function(d, a, y) {
+      typeof d == "string" && (s.skipDecodeWarning || (console.error("Iconv-lite warning: decode()-ing strings is deprecated. Refer to https://github.com/ashtuchkin/iconv-lite/wiki/Use-Buffers-when-decoding"), s.skipDecodeWarning = !0), d = n.from("" + (d || ""), "binary"));
+      var c = s.getDecoder(a, y), p = c.write(d), w = c.end();
       return w ? p + w : p;
-    }, s.encodingExists = function(l) {
+    }, s.encodingExists = function(d) {
       try {
-        return s.getCodec(l), !0;
+        return s.getCodec(d), !0;
       } catch {
         return !1;
       }
-    }, s.toEncoding = s.encode, s.fromEncoding = s.decode, s._codecDataCache = {}, s.getCodec = function(l) {
+    }, s.toEncoding = s.encode, s.fromEncoding = s.decode, s._codecDataCache = {}, s.getCodec = function(d) {
       s.encodings || (s.encodings = Tt());
-      for (var a = s._canonicalizeEncoding(l), y = {}; ; ) {
+      for (var a = s._canonicalizeEncoding(d), y = {}; ; ) {
         var c = s._codecDataCache[a];
         if (c)
           return c;
@@ -4124,20 +4124,20 @@ function kt() {
           case "function":
             return y.encodingName || (y.encodingName = a), c = new p(y, s), s._codecDataCache[y.encodingName] = c, c;
           default:
-            throw new Error("Encoding not recognized: '" + l + "' (searched as: '" + a + "')");
+            throw new Error("Encoding not recognized: '" + d + "' (searched as: '" + a + "')");
         }
       }
     }, s._canonicalizeEncoding = function(g) {
       return ("" + g).toLowerCase().replace(/:\d{4}$|[^0-9a-z]/g, "");
-    }, s.getEncoder = function(l, a) {
-      var y = s.getCodec(l), c = new y.encoder(a, y);
+    }, s.getEncoder = function(d, a) {
+      var y = s.getCodec(d), c = new y.encoder(a, y);
       return y.bomAware && a && a.addBOM && (c = new u.PrependBOM(c, a)), c;
-    }, s.getDecoder = function(l, a) {
-      var y = s.getCodec(l), c = new y.decoder(a, y);
+    }, s.getDecoder = function(d, a) {
+      var y = s.getCodec(d), c = new y.decoder(a, y);
       return y.bomAware && !(a && a.stripBOM === !1) && (c = new u.StripBOM(c, a)), c;
-    }, s.enableStreamingAPI = function(l) {
+    }, s.enableStreamingAPI = function(d) {
       if (!s.supportsStreams) {
-        var a = Ct()(l);
+        var a = Ct()(d);
         s.IconvLiteEncoderStream = a.IconvLiteEncoderStream, s.IconvLiteDecoderStream = a.IconvLiteDecoderStream, s.encodeStream = function(c, p) {
           return new s.IconvLiteEncoderStream(s.getEncoder(c, p), p);
         }, s.decodeStream = function(c, p) {
@@ -4158,10 +4158,10 @@ function kt() {
 var Rt = kt();
 class Lt {
   constructor() {
-    this.datas = {};
+    this.datas = {}, this.records = {};
   }
   /**
-   * oto.iniのデータを分割し、datasに格納する。
+   * oto.iniのデータを分割し、datasとaliasに格納する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param data oto.iniのデータ
    */
@@ -4173,8 +4173,8 @@ class Lt {
 `).forEach((g) => {
       if (g === "")
         return;
-      const l = new K(n, g);
-      this.datas[n] && this.datas[n][l.filename] ? this.datas[n][l.filename][l.alias] = l : this.datas[n] ? this.datas[n][l.filename] = { [l.alias]: l } : this.datas[n] = { [l.filename]: { [l.alias]: l } };
+      const d = new K(n, g);
+      this.datas[n] && this.datas[n][d.filename] ? this.datas[n][d.filename][d.alias] = d : this.datas[n] ? this.datas[n][d.filename] = { [d.alias]: d } : this.datas[n] = { [d.filename]: { [d.alias]: d } }, Object.keys(this.records).includes(d.alias) || (this.records[d.alias] = d);
     });
   }
   /**
@@ -4189,11 +4189,11 @@ class Lt {
    * @param velocity 子音部(固定範囲)
    * @param blank ブランク(右ブランク)
    */
-  SetParams(n, u, s, f, g, l, a, y) {
+  SetParams(n, u, s, f, g, d, a, y) {
     if (this.HasOtoRecord(n, u, s))
-      this.datas[n][u][s].offset = f, this.datas[n][u][s].overlap = g, this.datas[n][u][s].pre = l, this.datas[n][u][s].velocity = a, this.datas[n][u][s].blank = y;
+      this.datas[n][u][s].offset = f, this.datas[n][u][s].overlap = g, this.datas[n][u][s].pre = d, this.datas[n][u][s].velocity = a, this.datas[n][u][s].blank = y;
     else {
-      const c = u + "=" + s + "," + f.toFixed(3) + "," + a.toFixed(3) + "," + y.toFixed(3) + "," + l.toFixed(3) + "," + g.toFixed(3);
+      const c = u + "=" + s + "," + f.toFixed(3) + "," + a.toFixed(3) + "," + y.toFixed(3) + "," + d.toFixed(3) + "," + g.toFixed(3);
       this.datas[n] && this.datas[n][u] ? this.datas[n][u][s] = new K(n, c) : this.datas[n] ? this.datas[n][u] = {
         [s]: new K(n, c)
       } : this.datas[n] = {
@@ -4308,6 +4308,14 @@ class Lt {
     return this.HasOtoRecord(n, u, s) ? this.datas[n][u][s] : null;
   }
   /**
+   * エイリアスに該当するoto.iniのレコードを返す
+   * @param alias
+   * @returns
+   */
+  GetRecordFromAlias(n) {
+    return Object.keys(this.records).includes(n) ? this.records[n] : null;
+  }
+  /**
    * oto.iniを読み込んでdatasに格納する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param otoPath oto.iniのファイルパス
@@ -4327,9 +4335,9 @@ class Lt {
    */
   async InputOtoAsync(n, u, s = "SJIS") {
     const f = new FileReader();
-    return f.readAsText(u, s), new Promise((g, l) => {
+    return f.readAsText(u, s), new Promise((g, d) => {
       f.addEventListener("load", () => {
-        typeof f.result == "string" ? (this.ParseOto(n, f.result), g()) : (console.error("file can't read"), l("file can't read"));
+        typeof f.result == "string" ? (this.ParseOto(n, f.result), g()) : (console.error("file can't read"), d("file can't read"));
       });
     });
   }
@@ -4344,9 +4352,9 @@ class Lt {
     for (const s in this.datas) {
       const f = new Array();
       for (const g in this.datas[s])
-        for (const l in this.datas[s][g])
+        for (const d in this.datas[s][g])
           f.push(
-            this.datas[s][g][l].filename + "=" + this.datas[s][g][l].alias + "," + this.datas[s][g][l].offset.toFixed(3) + "," + this.datas[s][g][l].velocity.toFixed(3) + "," + this.datas[s][g][l].blank.toFixed(3) + "," + this.datas[s][g][l].pre.toFixed(3) + "," + this.datas[s][g][l].overlap.toFixed(3)
+            this.datas[s][g][d].filename + "=" + this.datas[s][g][d].alias + "," + this.datas[s][g][d].offset.toFixed(3) + "," + this.datas[s][g][d].velocity.toFixed(3) + "," + this.datas[s][g][d].blank.toFixed(3) + "," + this.datas[s][g][d].pre.toFixed(3) + "," + this.datas[s][g][d].overlap.toFixed(3)
           );
       if (n = "SJIS") {
         const g = new File(
