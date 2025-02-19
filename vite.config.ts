@@ -9,8 +9,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "utauwav",
-      fileName: (format) => `utauwav.${format}.js`,
+      name: "utauoto",
+      fileName: (format) => `utauoto.${format}.js`,
       formats: ["es"],
     },
     rollupOptions: {

@@ -1,7 +1,7 @@
 {
   "name": "utauoto",
-  "version": "0.6.1",
-  "main": "./dist/index.js",
+  "version": "0.6.2",
+  "main": "./dist/utauoto.es.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
