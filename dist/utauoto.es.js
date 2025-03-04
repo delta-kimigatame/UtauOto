@@ -4161,6 +4161,15 @@ class Lt {
     this.datas = {}, this.records = {};
   }
   /**
+   * oto.iniに含まれるエイリアス数を返す。
+   * この操作は、ParseOtoを使ってoto.iniファイルを読み込んだ際には正常に動作するが、
+   * SetAlias や SetParams、RemoveFileName、RemoveAlias などの編集操作を行うと正常に動作しないため注意が必要である。
+   * ToDo:SetAlias、SetParams、RemoveFileName、RemoveAliasの修正
+   */
+  get otoCount() {
+    return Object.keys(this.records).length;
+  }
+  /**
    * oto.iniのデータを分割し、datasとaliasに格納する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param data oto.iniのデータ
@@ -4356,7 +4365,7 @@ class Lt {
           f.push(
             this.datas[s][g][d].filename + "=" + this.datas[s][g][d].alias + "," + this.datas[s][g][d].offset.toFixed(3) + "," + this.datas[s][g][d].velocity.toFixed(3) + "," + this.datas[s][g][d].blank.toFixed(3) + "," + this.datas[s][g][d].pre.toFixed(3) + "," + this.datas[s][g][d].overlap.toFixed(3)
           );
-      if (n = "SJIS") {
+      if (n === "SJIS") {
         const g = new File(
           [Rt.encode(f.join(`\r
 `), "Windows-31j")],

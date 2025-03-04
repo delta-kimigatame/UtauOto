@@ -18,6 +18,16 @@ export default class Oto {
   }
 
   /**
+   * oto.iniに含まれるエイリアス数を返す。
+   * この操作は、ParseOtoを使ってoto.iniファイルを読み込んだ際には正常に動作するが、
+   * SetAlias や SetParams、RemoveFileName、RemoveAlias などの編集操作を行うと正常に動作しないため注意が必要である。
+   * ToDo:SetAlias、SetParams、RemoveFileName、RemoveAliasの修正
+   */
+  get otoCount():number{
+    return Object.keys(this.records).length;
+  }
+
+  /**
    * oto.iniのデータを分割し、datasとaliasに格納する。
    * @param dirPath 原音ルートからoto.iniがあるディレクトリまでの相対パス
    * @param data oto.iniのデータ
@@ -349,7 +359,7 @@ export default class Oto {
           );
         }
       }
-      if ((encoding = "SJIS")) {
+      if ((encoding === "SJIS")) {
         const iniFile = new File(
           [iconv.encode(lines.join("\r\n"), "Windows-31j")],
           dirPath,
