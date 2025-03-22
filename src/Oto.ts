@@ -51,8 +51,9 @@ export default class Oto {
       } else {
         this.datas[dirPath] = { [record.filename]: { [record.alias]: record } };
       }
-      if (!Object.keys(this.records).includes(record.alias)) {
-        this.records[record.alias] = record;
+      const otoRecordKey = record.alias!==""?record.alias:record.filename.slice(0,-4)
+      if (!Object.keys(this.records).includes(otoRecordKey)) {
+        this.records[otoRecordKey] = record;
       }
     });
   }

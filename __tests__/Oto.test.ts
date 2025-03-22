@@ -325,4 +325,13 @@ describe("Otoのテスト", () => {
     expect(oto.GetRecordFromAlias("い")?.filename).toBe("_い.wav")
     expect(oto.GetRecordFromAlias("え")).toBeNull()
   })
+  test("GetRecordFromAliasFileName",()=>{
+    const oto = new Oto();
+    oto.ParseOto(
+      "A3",
+      "あ.wav=,1,2,3,4,5\r\nい.wav=,6,7,8,9,10\r\n_う.wav=う,11,12,13,14,15\r\n_う.wav=い,16,17,18,19,20"
+    );
+    expect(oto.GetRecordFromAlias("あ")?.filename).toBe("あ.wav")
+    expect(oto.GetRecordFromAlias("い")?.filename).toBe("い.wav")
+  })
 });
