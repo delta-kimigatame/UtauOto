@@ -5,6 +5,8 @@
 import OtoRecord from "./OtoRecord";
 import * as iconv from "iconv-lite";
 
+const recordReg = /^[^=]+\.wav=[^,]*,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+$/
+
 export default class Oto {
   private datas: {
     [dirPath: string]: { [filename: string]: { [alias: string]: OtoRecord } };
@@ -37,10 +39,14 @@ export default class Oto {
     if (data.charCodeAt(0) === 0xfeff) {
       input_data = data.slice(1);
     }
-    const lines: string[] = input_data.replace("\r\n", "\n").split("\n");
+    const lines: string[] = input_data.replace(/\r\n/g, "\n").split("\n");
     lines.forEach((line) => {
       if (line === "") {
         //**空行は無視する */
+        return;
+      }
+      if(!recordReg.test(line)){
+        //**正規表現に一致しない行は無視する。 */
         return;
       }
       const record = new OtoRecord(dirPath, line);

@@ -1,4 +1,5 @@
 import OtoRecord from "../src/OtoRecord";
+import {describe,test,expect} from "vitest"
 
 describe("OtoRecordのテスト", () => {
   test("default_init", () => {

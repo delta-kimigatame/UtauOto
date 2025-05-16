@@ -334,4 +334,27 @@ describe("Otoのテスト", () => {
     expect(oto.GetRecordFromAlias("あ")?.filename).toBe("あ.wav")
     expect(oto.GetRecordFromAlias("い")?.filename).toBe("い.wav")
   })
+  
+  test("Charset:utf8", () => {
+    const oto = new Oto();
+    oto.ParseOto(
+      "A3",
+      "#Charset:UTF8\r\n_あ.wav=あ,1,2,3,4,5\r\n_い.wav=い,6,7,8,9,10\r\n_う.wav=う,11,12,13,14,15\r\n_う.wav=* う,16,17,18,19,20"
+    );
+    expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_い.wav", "い")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "う")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "* う")).toBe(true);
+  })
+  test("error_line", () => {
+    const oto = new Oto();
+    oto.ParseOto(
+      "A3",
+      "#Charset:UTF8\r\n_あ.wav=あ,1,2,3,4,5\r\n_い.wav=い,6,7,8,9,10\r\n_う.wav=う,11,12,13,14,15\r\nvvv\r\n_う.wav=* う,16,17,18,19,20"
+    );
+    expect(oto.HasOtoRecord("A3", "_あ.wav", "あ")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_い.wav", "い")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "う")).toBe(true);
+    expect(oto.HasOtoRecord("A3", "_う.wav", "* う")).toBe(true);
+  })
 });
