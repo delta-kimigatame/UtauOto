@@ -731,13 +731,13 @@ function ut() {
     }, a.prototype.readUint32BE = a.prototype.readUInt32BE = function(e, t) {
       return e = e >>> 0, t || L(e, 4, this.length), this[e] * 16777216 + (this[e + 1] << 16 | this[e + 2] << 8 | this[e + 3]);
     }, a.prototype.readBigUInt64LE = G(function(e) {
-      e = e >>> 0, P(e, "offset");
+      e = e >>> 0, W(e, "offset");
       const t = this[e], i = this[e + 7];
       (t === void 0 || i === void 0) && K(e, this.length - 8);
       const o = t + this[++e] * 2 ** 8 + this[++e] * 2 ** 16 + this[++e] * 2 ** 24, b = this[++e] + this[++e] * 2 ** 8 + this[++e] * 2 ** 16 + i * 2 ** 24;
       return BigInt(o) + (BigInt(b) << BigInt(32));
     }), a.prototype.readBigUInt64BE = G(function(e) {
-      e = e >>> 0, P(e, "offset");
+      e = e >>> 0, W(e, "offset");
       const t = this[e], i = this[e + 7];
       (t === void 0 || i === void 0) && K(e, this.length - 8);
       const o = t * 2 ** 24 + this[++e] * 2 ** 16 + this[++e] * 2 ** 8 + this[++e], b = this[++e] * 2 ** 24 + this[++e] * 2 ** 16 + this[++e] * 2 ** 8 + i;
@@ -769,13 +769,13 @@ function ut() {
     }, a.prototype.readInt32BE = function(e, t) {
       return e = e >>> 0, t || L(e, 4, this.length), this[e] << 24 | this[e + 1] << 16 | this[e + 2] << 8 | this[e + 3];
     }, a.prototype.readBigInt64LE = G(function(e) {
-      e = e >>> 0, P(e, "offset");
+      e = e >>> 0, W(e, "offset");
       const t = this[e], i = this[e + 7];
       (t === void 0 || i === void 0) && K(e, this.length - 8);
       const o = this[e + 4] + this[e + 5] * 2 ** 8 + this[e + 6] * 2 ** 16 + (i << 24);
       return (BigInt(o) << BigInt(32)) + BigInt(t + this[++e] * 2 ** 8 + this[++e] * 2 ** 16 + this[++e] * 2 ** 24);
     }), a.prototype.readBigInt64BE = G(function(e) {
-      e = e >>> 0, P(e, "offset");
+      e = e >>> 0, W(e, "offset");
       const t = this[e], i = this[e + 7];
       (t === void 0 || i === void 0) && K(e, this.length - 8);
       const o = (t << 24) + // Overflow
@@ -937,9 +937,9 @@ function ut() {
       }
       return this;
     };
-    const W = {};
+    const P = {};
     function re(r, e, t) {
-      W[r] = class extends t {
+      P[r] = class extends t {
         constructor() {
           super(), Object.defineProperty(this, "message", {
             value: e.apply(this, arguments),
@@ -991,22 +991,22 @@ function ut() {
       return `${r.slice(0, t)}${e}`;
     }
     function et(r, e, t) {
-      P(e, "offset"), (r[e] === void 0 || r[e + t] === void 0) && K(e, r.length - (t + 1));
+      W(e, "offset"), (r[e] === void 0 || r[e + t] === void 0) && K(e, r.length - (t + 1));
     }
     function _e(r, e, t, i, o, b) {
       if (r > t || r < e) {
         const E = typeof e == "bigint" ? "n" : "";
         let U;
-        throw e === 0 || e === BigInt(0) ? U = `>= 0${E} and < 2${E} ** ${(b + 1) * 8}${E}` : U = `>= -(2${E} ** ${(b + 1) * 8 - 1}${E}) and < 2 ** ${(b + 1) * 8 - 1}${E}`, new W.ERR_OUT_OF_RANGE("value", U, r);
+        throw e === 0 || e === BigInt(0) ? U = `>= 0${E} and < 2${E} ** ${(b + 1) * 8}${E}` : U = `>= -(2${E} ** ${(b + 1) * 8 - 1}${E}) and < 2 ** ${(b + 1) * 8 - 1}${E}`, new P.ERR_OUT_OF_RANGE("value", U, r);
       }
       et(i, o, b);
     }
-    function P(r, e) {
+    function W(r, e) {
       if (typeof r != "number")
-        throw new W.ERR_INVALID_ARG_TYPE(e, "number", r);
+        throw new P.ERR_INVALID_ARG_TYPE(e, "number", r);
     }
     function K(r, e, t) {
-      throw Math.floor(r) !== r ? (P(r, t), new W.ERR_OUT_OF_RANGE("offset", "an integer", r)) : e < 0 ? new W.ERR_BUFFER_OUT_OF_BOUNDS() : new W.ERR_OUT_OF_RANGE(
+      throw Math.floor(r) !== r ? (W(r, t), new P.ERR_OUT_OF_RANGE("offset", "an integer", r)) : e < 0 ? new P.ERR_BUFFER_OUT_OF_BOUNDS() : new P.ERR_OUT_OF_RANGE(
         "offset",
         `>= 0 and <= ${e}`,
         r
@@ -1178,7 +1178,7 @@ var ce = {};
 const pt = {}, dt = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: pt
-}, Symbol.toStringTag, { value: "Module" })), Pe = /* @__PURE__ */ ot(dt);
+}, Symbol.toStringTag, { value: "Module" })), We = /* @__PURE__ */ ot(dt);
 var fe, ke;
 function lt() {
   if (ke) return fe;
@@ -1201,7 +1201,7 @@ function lt() {
     this.enc = y.encodingName, this.bomAware = y.bomAware, this.enc === "base64" ? this.encoder = g : this.enc === "cesu8" && (this.enc = "utf8", this.encoder = p, I.from("eda0bdedb2a9", "hex").toString() !== "💩" && (this.decoder = a, this.defaultCharUnicode = c.defaultCharUnicode));
   }
   n.prototype.encoder = f, n.prototype.decoder = s;
-  var u = Pe.StringDecoder;
+  var u = We.StringDecoder;
   u.prototype.end || (u.prototype.end = function() {
   });
   function s(y, c) {
@@ -4087,9 +4087,9 @@ function Ct() {
     };
   }, ye;
 }
-var We;
+var Pe;
 function kt() {
-  return We || (We = 1, function(I) {
+  return Pe || (Pe = 1, function(I) {
     var n = J().Buffer, u = ht(), s = I.exports;
     s.encodings = null, s.defaultCharUnicode = "�", s.defaultCharSingleByte = "?", s.encode = function(p, a, y) {
       p = "" + (p || "");
@@ -4147,7 +4147,7 @@ function kt() {
     };
     var f;
     try {
-      f = Pe;
+      f = We;
     } catch {
     }
     f && f.Transform ? s.enableStreamingAPI(f) : s.encodeStream = s.decodeStream = function() {
@@ -4156,7 +4156,8 @@ function kt() {
   }(ae)), ae.exports;
 }
 var Rt = kt();
-class Lt {
+const Dt = /^[^=]+\.wav=[^,]*,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+$/;
+class Ot {
   constructor() {
     this.datas = {}, this.records = {};
   }
@@ -4176,11 +4177,10 @@ class Lt {
    */
   ParseOto(n, u) {
     let s = u;
-    u.charCodeAt(0) === 65279 && (s = u.slice(1)), s.replace(`\r
-`, `
+    u.charCodeAt(0) === 65279 && (s = u.slice(1)), s.replace(/\r\n/g, `
 `).split(`
 `).forEach((g) => {
-      if (g === "")
+      if (g === "" || !Dt.test(g))
         return;
       const p = new Y(n, g);
       this.datas[n] && this.datas[n][p.filename] ? this.datas[n][p.filename][p.alias] = p : this.datas[n] ? this.datas[n][p.filename] = { [p.alias]: p } : this.datas[n] = { [p.filename]: { [p.alias]: p } };
@@ -4447,7 +4447,20 @@ class Lt {
         s.includes(f) || s.push(f);
     return s;
   }
+  /**
+   * 指定した文字列に部分一致するエイリアスをすべて返す。
+   * @param searchString 検索する文字列
+   * @returns 部分一致するエイリアスの一覧
+   */
+  SearchAliases(n) {
+    const u = [];
+    for (const s in this.datas)
+      for (const f in this.datas[s])
+        for (const g in this.datas[s][f])
+          g.includes(n) && u.push(g);
+    return u;
+  }
 }
 export {
-  Lt as Oto
+  Ot as Oto
 };

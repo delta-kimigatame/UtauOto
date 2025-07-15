@@ -5,7 +5,8 @@
 import OtoRecord from "./OtoRecord";
 import * as iconv from "iconv-lite";
 
-const recordReg = /^[^=]+\.wav=[^,]*,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+$/
+const recordReg =
+  /^[^=]+\.wav=[^,]*,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+$/;
 
 export default class Oto {
   private datas: {
@@ -25,7 +26,7 @@ export default class Oto {
    * SetAlias や SetParams、RemoveFileName、RemoveAlias などの編集操作を行うと正常に動作しないため注意が必要である。
    * ToDo:SetAlias、SetParams、RemoveFileName、RemoveAliasの修正
    */
-  get otoCount():number{
+  get otoCount(): number {
     return Object.keys(this.records).length;
   }
 
@@ -45,7 +46,7 @@ export default class Oto {
         //**空行は無視する */
         return;
       }
-      if(!recordReg.test(line)){
+      if (!recordReg.test(line)) {
         //**正規表現に一致しない行は無視する。 */
         return;
       }
@@ -57,7 +58,8 @@ export default class Oto {
       } else {
         this.datas[dirPath] = { [record.filename]: { [record.alias]: record } };
       }
-      const otoRecordKey = record.alias!==""?record.alias:record.filename.slice(0,-4)
+      const otoRecordKey =
+        record.alias !== "" ? record.alias : record.filename.slice(0, -4);
       if (!Object.keys(this.records).includes(otoRecordKey)) {
         this.records[otoRecordKey] = record;
       }
@@ -366,7 +368,7 @@ export default class Oto {
           );
         }
       }
-      if ((encoding === "SJIS")) {
+      if (encoding === "SJIS") {
         const iniFile = new File(
           [iconv.encode(lines.join("\r\n"), "Windows-31j")],
           dirPath,
@@ -476,6 +478,25 @@ export default class Oto {
       if (Object.keys(this.datas[dirPath]).includes(filename)) {
         for (const alias in this.datas[dirPath][filename]) {
           if (!result.includes(alias)) {
+            result.push(alias);
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
+   * 指定した文字列に部分一致するエイリアスをすべて返す。
+   * @param searchString 検索する文字列
+   * @returns 部分一致するエイリアスの一覧
+   */
+  SearchAliases(searchString: string): Array<string> {
+    const result: Array<string> = [];
+    for (const dirPath in this.datas) {
+      for (const filename in this.datas[dirPath]) {
+        for (const alias in this.datas[dirPath][filename]) {
+          if (alias.includes(searchString)) {
             result.push(alias);
           }
         }

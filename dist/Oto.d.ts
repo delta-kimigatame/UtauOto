@@ -170,4 +170,10 @@ export default class Oto {
      * @returns 指定したファイルのエイリアスの一覧
      */
     GetAliases(dirPath: string, filename: string): Array<string>;
+    /**
+     * 指定した文字列に部分一致するエイリアスをすべて返す。
+     * @param searchString 検索する文字列
+     * @returns 部分一致するエイリアスの一覧
+     */
+    SearchAliases(searchString: string): Array<string>;
 }

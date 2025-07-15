@@ -357,4 +357,23 @@ describe("Otoのテスト", () => {
     expect(oto.HasOtoRecord("A3", "_う.wav", "う")).toBe(true);
     expect(oto.HasOtoRecord("A3", "_う.wav", "* う")).toBe(true);
   })
+
+  test("SearchAliases", () => {
+    const oto = new Oto();
+    oto.ParseOto(
+      "A3",
+      "_あ.wav=あ,1,2,3,4,5\r\n_い.wav=い,6,7,8,9,10\r\n_う.wav=a あ,11,12,13,14,15\r\n_え.wav=あ2,16,17,18,19,20"
+    );
+  
+    // 部分一致するエイリアスを検索
+    const result1 = oto.SearchAliases("あ");
+    expect(result1).toEqual(["あ","a あ","あ2"]);
+  
+    const result2 = oto.SearchAliases("い");
+    expect(result2).toEqual(["い"]);
+  
+  
+    const result5 = oto.SearchAliases("お");
+    expect(result5).toEqual([]); // 存在しないエイリアスの場合
+  });
 });
