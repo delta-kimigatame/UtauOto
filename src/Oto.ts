@@ -6,7 +6,7 @@ import OtoRecord from "./OtoRecord";
 import * as iconv from "iconv-lite";
 
 const recordReg =
-  /^[^=]+\.wav=[^,]*,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+,[\-0-9\.]+$/;
+  /^[^=]+\.wav=[^,]*,(?:-?(?:\d+(?:\.\d+)?|\.\d+))?,(?:-?(?:\d+(?:\.\d+)?|\.\d+))?,(?:-?(?:\d+(?:\.\d+)?|\.\d+))?,(?:-?(?:\d+(?:\.\d+)?|\.\d+))?,(?:-?(?:\d+(?:\.\d+)?|\.\d+))?$/;
 
 export default class Oto {
   private datas: {

@@ -358,6 +358,29 @@ describe("Otoのテスト", () => {
     expect(oto.HasOtoRecord("A3", "_う.wav", "* う")).toBe(true);
   })
 
+  test("allow_empty_numeric_fields", () => {
+    const oto = new Oto();
+    oto.ParseOto("A3", "_空.wav=空,,,,,");
+
+    expect(oto.HasOtoRecord("A3", "_空.wav", "空")).toBe(true);
+    const record = oto.GetRecord("A3", "_空.wav", "空");
+    if (record) {
+      expect(record.offset).toBe(0.0);
+      expect(record.velocity).toBe(0.0);
+      expect(record.blank).toBe(0.0);
+      expect(record.pre).toBe(0.0);
+      expect(record.overlap).toBe(0.0);
+    }
+  });
+
+  test("reject_invalid_numeric_fields", () => {
+    const oto = new Oto();
+    oto.ParseOto("A3", "_不正.wav=不正,-,..,1,2,3\r\n_正.wav=正,1,2,3,4,5");
+
+    expect(oto.HasOtoRecord("A3", "_不正.wav", "不正")).toBe(false);
+    expect(oto.HasOtoRecord("A3", "_正.wav", "正")).toBe(true);
+  });
+
   test("SearchAliases", () => {
     const oto = new Oto();
     oto.ParseOto(
