@@ -14,7 +14,9 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: [],
+      // iconv-lite は CommonJS の遅延 require で文字コード表を読み込む。
+      // 同梱すると消費側ブラウザビルドで表が欠落する場合があるため、外部依存として残す。
+      external: ["iconv-lite"],
     },
   },
   resolve: {

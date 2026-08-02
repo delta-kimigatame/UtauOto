@@ -372,12 +372,12 @@ export default class Oto {
         const iniFile = new File(
           [iconv.encode(lines.join("\r\n"), "Windows-31j")],
           dirPath,
-          { type: "text/plane;charset=shift-jis" }
+          { type: "text/plain;charset=shift-jis" }
         );
         resultUrls.push(iniFile);
       } else {
         const iniFile = new File([lines.join("\r\n")], dirPath, {
-          type: "text/plane;charset=utf-8",
+          type: "text/plain;charset=utf-8",
         });
         resultUrls.push(iniFile);
       }
